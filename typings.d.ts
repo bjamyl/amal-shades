@@ -16,3 +16,9 @@ interface Products extends SanityBase {
   mainImage: Image;
   categories: string[];
 }
+
+interface TestimonialCardProps {
+  message: string;
+  name: string;
+  image: Image;
+};

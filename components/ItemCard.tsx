@@ -24,9 +24,9 @@ const ItemCard = ({ product }: { product: Products }) => {
         </div>
 
         <p className="text-lg font-medium">{product.title}</p>
-        <p className="mb-10 text-sm">{formatCurrency(product.price)}</p>
+        <p className="mb-10 text-sm text-slate-700">{formatCurrency(product.price)}</p>
 
-        <Button variant="outline" className="w-full border-2">
+        <Button variant="outline" className="w-full border-2 border-slate-700 text-slate-700 rounded-none">
           Add to cart
         </Button>
       </div>

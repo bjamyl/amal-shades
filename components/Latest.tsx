@@ -10,13 +10,13 @@ const query = groq`
 const Latest = async () => {
   const products: Products[] = await client.fetch(query);
   return (
-    <section className="my-10 layout__all">
-      <h2 className="text-5xl md:text-center">NEW COLLECTION</h2>
+    <section className="my-16 layout__all">
+      <h2 className="text-5xl md:text-center">Best Selling Glasses</h2>
       <p className="mt-3 md:text-center">
         Our latest collection where classic and comtemporary styles converge in
         perfect harmony.
       </p>
-      <div className="mt-5 grid gap-x-4 grid-cols-2 md:grid-cols-3 md:gap-y-3 xl:grid-cols-4">
+      <div className="mt-5 grid gap-4 grid-cols-1 md:grid-cols-3 md:gap-y-3 xl:grid-cols-4">
         {products.map((item: Products) => (
           <ItemCard product={item} key={item._id} />
         ))}

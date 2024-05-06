@@ -29,19 +29,8 @@ export default defineType({
       type: "array",
       of: [
         {
-          type: "object",
-          fields: [
-            {
-              name: "image",
-              type: "image",
-              title: "Image",
-            },
-            {
-              name: "description",
-              type: "text",
-              title: "Description",
-            },
-          ],
+          type: "image",
+          
         },
       ],
     }),

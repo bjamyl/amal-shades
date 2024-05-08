@@ -15,10 +15,22 @@ interface Products extends SanityBase {
   gallery: Image[];
   mainImage: Image;
   categories: string[];
+  shape:string;
+  description:string;
+  size:string[];
+  rim: string;
+  color: string
+
 }
 
 interface TestimonialCardProps {
   message: string;
   name: string;
   image: Image;
-};
+}
+
+interface BannerType {
+  heading: string;
+  subheading: string;
+  gallery: Image[];
+}

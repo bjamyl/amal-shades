@@ -23,3 +23,12 @@ const testimonials = groq`
 export async function getTestimonials() {
   return client.fetch(testimonials);
 }
+
+const banner = groq`
+*[_type == "banner"]
+`;
+
+export async function getBanner() {
+  console.log('fetched')
+  return client.fetch(banner);
+}

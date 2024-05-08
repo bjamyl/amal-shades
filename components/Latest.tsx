@@ -5,9 +5,6 @@ import { Products } from "@/typings";
 import ItemCard from "./ItemCard";
 import { Button } from "./ui/button";
 
-const query = groq`
-*[_type == "product"]`;
-
 type LatestProps = {
   title: string;
   description: string;
@@ -22,8 +19,6 @@ const Latest = ({ title, description, products }: LatestProps) => {
         <div>
           <h2 className="text-3xl">{title}</h2>
           <p className="mt-3 text-slate-600">
-            {/* Our latest collection where classic and comtemporary styles converge
-            in perfect harmony. */}
             {description}
           </p>
         </div>

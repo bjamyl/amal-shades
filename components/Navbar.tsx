@@ -6,17 +6,17 @@ import { Button } from "./ui/button";
 
 export const Navbar = () => {
   return (
-    <header className="w-full fixed bg-white shadow-sm z-10">
+    <header className="w-full fixed bg-white shadow-sm z-40">
       <nav className="layout__all flex justify-between items-center py-1 lg:py-4">
         <Link href="/" className="flex justify-center items-center">
           <h1 className="text-xl font-bold">Amal Shades</h1>
         </Link>
         {/* Page Links */}
         <ul className=" gap-x-5 hover:cursor-pointer hidden lg:flex">
-          <li>Solutions</li>
-          <li>Pricing</li>
-          <li>Help</li>
-          <li>Contact</li>
+          <li>All products</li>
+          <li>Gents</li>
+          <li>Ladies</li>
+          <li>About Us</li>
         </ul>
         <div className="flex justify-center items-center gap-2">
           <div className="relative cursor-pointer">

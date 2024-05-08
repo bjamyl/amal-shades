@@ -27,13 +27,71 @@ export default defineType({
     defineField({
       name: "gallery",
       type: "array",
+      description: "Upload all images of the item",
       of: [
         {
           type: "image",
-          
         },
       ],
     }),
+    defineField({
+      name: "size",
+      title: "Size",
+      type: "array",
+      description: "Select the available sizes",
+      of: [
+        {
+          type: "string",
+          options: {
+            list: [
+              { title: "Narrow", value: "narrow" },
+              { title: "Medium", value: "medium" },
+              { title: "Wide", value: "wide" },
+            ],
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "string",
+    }),
+
+    defineField({
+      name: "color",
+      title: "Color",
+      type: "string",
+    }),
+    defineField({
+      name: "rim",
+      title: "Rim type",
+      description: "Select the rim type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Full rim", value: "full-rim" },
+          { title: "Semi-rimless", value: "semi-rim" },
+          { title: "Rimless", value: "rimless" },
+        ],
+      },
+    }),
+    defineField({
+      name: "shape",
+      title: "Frame shape",
+      description: "Select the frame shape",
+      type: "string",
+      options: {
+        list: [
+          { title: "Square", value: "square" },
+          { title: "Round", value: "round" },
+          { title: "Rectangle", value: "rectangle" },
+          { title: "Aviator", value: "aviator" },
+          { title: "Cat Eye", value: "cat-eye" },
+        ],
+      },
+    }),
+
     defineField({
       name: "mainImage",
       title: "Main image",
@@ -59,11 +117,6 @@ export default defineType({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
-    }),
-    defineField({
-      name: "body",
-      title: "Body",
-      type: "blockContent",
     }),
   ],
 

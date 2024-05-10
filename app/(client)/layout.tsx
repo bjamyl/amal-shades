@@ -3,8 +3,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Lato } from "next/font/google";
 import "../globals.css";
+import {
+  ShoppingCartProvider,
+} from "@/context/ShoppingCartContext";
 
-const lato = Lato({ subsets: ["latin"], weight: ["100" ,"300", "700", "400"] });
+const lato = Lato({ subsets: ["latin"], weight: ["100", "300", "700", "400"] });
 
 export const metadata: Metadata = {
   title: "Amal-Shades: Affordable, Quality Eyewear for All",
@@ -19,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <ShoppingCartProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ShoppingCartProvider>
       </body>
     </html>
   );

@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { getSingleProduct } from "@/sanity/sanity.query";
 import { Products } from "@/typings";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
 
 import ProductSwiper from "@/components/ProductSwiper";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@/components/Tabs";
 
 type Props = {
@@ -42,6 +43,11 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
     );
   }
 
+  // Get context functions
+  const { getItemQty, increaseCartQty, decreaseCartQty, removeFromCart } =
+    useShoppingCart();
+  const quantity = data ? getItemQty(data._id) : 0;
+
   return (
     <section className="layout__all pt-20">
       <div className=" md:grid md:grid-cols-2 md:gap-x-8">
@@ -53,23 +59,42 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
           <h4 className="my-2 text-3xl font-semibold">
             {formatCurrency(data.price)}
           </h4>
-          <div className="flex mb-5 items-center gap-2">
-            <p className="font-bold">Quantity:</p>
+          {quantity === 0 ? (
             <Button
-              variant="outline"
-              className="bg-transparent rounded-none border-slate-300"
+              onClick={() => increaseCartQty(data._id)}
+              className="rounded-none px-10"
             >
-              -
+              Add to cart{" "}
             </Button>
-            <p>1</p>
-            <Button
-              variant="outline"
-              className="bg-transparent rounded-none border-slate-300"
-            >
-              +
-            </Button>
-          </div>
-          <Button className="rounded-none px-10">Add to cart </Button>
+          ) : (
+            <div>
+              <div className="flex mb-5 items-center gap-2">
+                <p className="font-bold">Quantity:</p>
+                <Button
+                  onClick={() => decreaseCartQty(data._id)}
+                  variant="outline"
+                  className="bg-transparent rounded-none border-slate-300"
+                >
+                  -
+                </Button>
+                <p>{quantity}</p>
+                <Button
+                  onClick={() => increaseCartQty(data._id)}
+                  variant="outline"
+                  className="bg-transparent rounded-none border-slate-300"
+                >
+                  +
+                </Button>
+              </div>
+              <Button
+                onClick={() => removeFromCart(data._id)}
+                className="rounded-none px-10"
+              >
+                Remove from cart
+              </Button>
+            </div>
+          )}
+
           <div className="mt-6">
             <Tabs product={data} />
           </div>

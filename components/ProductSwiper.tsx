@@ -5,6 +5,7 @@ import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,9 +17,8 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Products } from "@/typings";
 
-
 export default function ProductSwiper({ product }: { product: Products }) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
 
   return (
     <div className="">

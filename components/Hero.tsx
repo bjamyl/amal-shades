@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
-import { BannerType, Products } from "@/typings";
-import { getBanner, getProducts } from "@/sanity/sanity.query";
+import { BannerType } from "@/typings";
+import { getBanner } from "@/sanity/sanity.query";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
@@ -21,11 +20,11 @@ type HeroProps = {
 
 const Hero = ({ initialData }: HeroProps) => {
   const [data, setData] = useState(initialData);
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/banner");
-      const newData = await res.json();
-      setData(newData);
+      const banner: BannerType[] = await getBanner();
+      setData(banner);
     };
 
     fetchData();
@@ -84,14 +83,5 @@ const Hero = ({ initialData }: HeroProps) => {
     </section>
   );
 };
-
-export async function getServerSideProps() {
-  const res = await fetch("/api/banner");
-
-  const initialData = await res.json();
-  console.log(initialData);
-
-  return { props: { initialData } as HeroProps };
-}
 
 export default Hero;

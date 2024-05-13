@@ -5,7 +5,6 @@ const slugQuery = groq`
 *[_type == "product" && slug.current == $slug[0]]`;
 
 export async function getSingleProduct(slug: string) {
-  console.log(slug);
   return client.fetch(`*[_type == "product" && slug.current == "${slug}"][0]`);
 }
 
@@ -29,7 +28,6 @@ const banner = groq`
 `;
 
 export async function getBanner() {
-  console.log("fetched");
   return client.fetch(banner);
 }
 

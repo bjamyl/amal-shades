@@ -15,12 +15,11 @@ interface Products extends SanityBase {
   gallery: Image[];
   mainImage: Image;
   categories: string[];
-  shape:string;
-  description:string;
-  size:string[];
+  shape: string;
+  description: string;
+  size: string[];
   rim: string;
-  color: string
-
+  color: string;
 }
 
 interface TestimonialCardProps {
@@ -33,4 +32,9 @@ interface BannerType {
   heading: string;
   subheading: string;
   gallery: Image[];
+}
+
+interface ShippingRate {
+  region: string;
+  cost: number;
 }

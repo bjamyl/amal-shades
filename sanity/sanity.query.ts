@@ -29,6 +29,13 @@ const banner = groq`
 `;
 
 export async function getBanner() {
-  console.log('fetched')
+  console.log("fetched");
   return client.fetch(banner);
+}
+
+const shipping = groq`
+*[_type == "shipping"]`;
+
+export async function getShippingRates() {
+  return client.fetch(shipping);
 }

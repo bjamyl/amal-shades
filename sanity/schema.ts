@@ -6,7 +6,8 @@ import testimonial from "./schemaTypes/testimonial";
 import product from "./schemaTypes/product";
 import author from "./schemaTypes/author";
 import banner from "./schemaTypes/banner"
+import shipping from "./schemaTypes/shipping";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [product, author, category, blockContent, testimonial, banner],
+  types: [product, author, category, blockContent, testimonial, banner, shipping],
 };

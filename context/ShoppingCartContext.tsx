@@ -1,6 +1,7 @@
 "use client";
 import ShoppingCart from "@/components/ShoppingCart";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Products } from "@/typings";
 import React, { useState } from "react";
 import { useContext, createContext } from "react";
 
@@ -9,10 +10,14 @@ type ShoppingCartContext = {
   increaseCartQty: (id: string) => void;
   decreaseCartQty: (id: string) => void;
   removeFromCart: (id: string) => void;
-  openCart: () => void;
-  closeCart: () => void;
   cartQuantity: number;
   cartItems: CartItem[];
+  totalAmount: number;
+  setAmount: (total: number) => void;
+  saveMail: (email: string) => void;
+  mail: string;
+  setShippingRates: (rates: number) => void;
+  rate: number;
 };
 
 type CartItem = {
@@ -30,18 +35,31 @@ export function ShoppingCartProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shopping-cart",[]);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  );
+
+  const [totalAmount, setTotalAmount] = useLocalStorage("total-amount", 0);
+  const [mail, setMail] = useState("");
+  const [rate, setRate] = useState(0);
+
+  const setAmount = (total: number) => {
+    setTotalAmount(total);
+  };
+
+  const saveMail = (email: string) => {
+    setMail(email);
+  };
+
+  const setShippingRates = (rate: number) => {
+    setRate(rate);
+  };
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0
   );
-
-
-  const openCart = () => setIsOpen(true)
-
-  const closeCart = () => setIsOpen(false)
 
   function getItemQty(id: string) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
@@ -94,8 +112,12 @@ export function ShoppingCartProvider({
         removeFromCart,
         cartItems,
         cartQuantity,
-        closeCart,
-        openCart,
+        totalAmount,
+        setAmount,
+        saveMail,
+        mail,
+        rate,
+        setShippingRates,
       }}
     >
       {children}

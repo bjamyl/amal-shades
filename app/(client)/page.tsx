@@ -6,16 +6,20 @@ import GFA from "@/components/GFA";
 import LatestGlasses from "@/components/LatestGlasses";
 import LatestAccessories from "@/components/LatestAccessories";
 import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const Home = () => {
   return (
     <ShoppingCartProvider>
-      <main className="pt-10 ">
+      <main className="">
+        <Navbar />
         <Hero />
         <LatestGlasses />
         <GFA />
         <LatestAccessories />
-        <Testimonials/>
+        <Testimonials />
+        <Footer />
       </main>
     </ShoppingCartProvider>
   );

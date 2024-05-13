@@ -53,7 +53,11 @@ const CartItem = (
             <p className="text-sm xl:text-base text-slate-500">{item.title}</p>
             <p className="xl:text-2xl">{formatCurrency(item.price)}</p>
           </div>
-          <Button variant="outline" className="rounded-none">
+          <Button
+            onClick={() => removeFromCart(item._id)}
+            variant="outline"
+            className="rounded-none"
+          >
             Remove
           </Button>
         </div>

@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={lato.className}>
         <ShoppingCartProvider>
-          <Navbar />
+          
           {children}
-          <Footer />
+          
         </ShoppingCartProvider>
       </body>
     </html>

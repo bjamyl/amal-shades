@@ -61,7 +61,7 @@ const ShoppingCart = ({ initialProducts }: ProductProps) => {
               onClick={() => setIsLoading(true)}
               className="rounded-none md:px-10 md:py-5"
             >
-              {isLoading ? <ClipLoader speedMultiplier={0.2} color="white" size={16} /> : "Checkout"}
+              {isLoading ? <ClipLoader speedMultiplier={0.5} color="white" size={16} /> : "Checkout"}
             </Button>
           </Link>
         )}

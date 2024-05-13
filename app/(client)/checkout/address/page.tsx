@@ -28,6 +28,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { useState, useEffect } from "react";
 import { getShippingRates } from "@/sanity/sanity.query";
 import { ShippingRate } from "@/typings";
+import { ClipLoader } from "react-spinners";
 
 const formSchema = z.object({
   emailAddress: z.string().email(),
@@ -39,6 +40,7 @@ const formSchema = z.object({
 const Checkout = () => {
   //Declare router instance
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   let { totalAmount, setAmount, saveMail } = useShoppingCart();
   const [rates, setRates] = useState<ShippingRate[]>([]);
@@ -51,6 +53,7 @@ const Checkout = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     console.log("submitted these values", {
       email: values.emailAddress,
       region: values.region,
@@ -188,7 +191,7 @@ const Checkout = () => {
                 }}
               />
               <Button type="submit" className="w-full mt-2 flex gap-4">
-                Next
+                {isLoading ? <ClipLoader color="white" size={16} /> : "Next"}
               </Button>
             </form>
           </Form>

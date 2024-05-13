@@ -2,6 +2,7 @@
 import Link from "next/link";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
+import { ClipLoader } from "react-spinners";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FcGoogle } from "react-icons/fc";
@@ -31,6 +32,8 @@ const formSchema = z.object({
 const Checkout = () => {
   const { totalAmount, mail } = useShoppingCart();
 
+  let isLoading = false;
+
   // Paystack config
   const config = {
     reference: new Date().getTime().toString(),
@@ -58,14 +61,18 @@ const Checkout = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    alert(mail);
+    isLoading = true;
     console.log("submitted these values", {
       fullname: values.fullname,
       phoneNnumber: values.phoneNumber,
       city: values.city,
     });
 
-    initializePayment(onSuccess, onClose);
+    initializePayment({
+      onSuccess: onSuccess,
+      onClose: onClose,
+      config: config,
+    });
   };
 
   return (
@@ -145,8 +152,14 @@ const Checkout = () => {
                 }}
               />
               <Button type="submit" className="w-full mt-2 flex gap-4">
-                <FaMoneyCheckDollar size={22} /> Pay{" "}
-                {formatCurrency(totalAmount)} with Paystack
+                {isLoading ? (
+                  <ClipLoader />
+                ) : (
+                  <div className="flex gap-4">
+                    <FaMoneyCheckDollar size={22} /> Pay{" "}
+                    {formatCurrency(totalAmount)} with Paystack
+                  </div>
+                )}
               </Button>
             </form>
           </Form>

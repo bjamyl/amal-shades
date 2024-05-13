@@ -6,12 +6,14 @@ import { Products } from "@/typings";
 import { getProducts } from "@/sanity/sanity.query";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import {  ClipLoader  } from "react-spinners";
 
 type ProductProps = {
   initialProducts: Products[];
 };
 
 const ShoppingCart = ({ initialProducts }: ProductProps) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState(initialProducts);
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +57,12 @@ const ShoppingCart = ({ initialProducts }: ProductProps) => {
           </Button>
         ) : (
           <Link href="/checkout/address">
-            <Button className="rounded-none md:px-10 md:py-5">Checkout</Button>
+            <Button
+              onClick={() => setIsLoading(true)}
+              className="rounded-none md:px-10 md:py-5"
+            >
+              {isLoading ? <ClipLoader speedMultiplier={0.2} color="white" size={16} /> : "Checkout"}
+            </Button>
           </Link>
         )}
       </div>

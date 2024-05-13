@@ -12,7 +12,7 @@ const ItemCard = ({ product }: { product: Products }) => {
   const productSlug = product.slug.current;
   console.log(productSlug);
   return (
-    <Link href={`products/${productSlug}`}>
+    <Link href={`products/${productSlug}`} className="border">
       <div className="full ">
         <div className="w-full h-64 overflow-hidden">
           <Image
@@ -24,17 +24,10 @@ const ItemCard = ({ product }: { product: Products }) => {
           />
         </div>
 
-        <p className="text-lg font-medium">{product.title}</p>
-        <p className="mb-10 text-sm text-slate-700">
+        <p className="px-4 text-xl pt-2 font-medium">{product.title}</p>
+        <p className="px-4 pb-4  text-slate-700">
           {formatCurrency(product.price)}
         </p>
-
-        <Button
-          variant="outline"
-          className="w-full border-2 border-slate-700 text-slate-700 rounded-none"
-        >
-          Add to cart
-        </Button>
       </div>
     </Link>
   );

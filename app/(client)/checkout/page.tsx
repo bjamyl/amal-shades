@@ -32,6 +32,8 @@ const formSchema = z.object({
 const Checkout = () => {
   const { totalAmount, mail } = useShoppingCart();
 
+  const router = useRouter();
+
   let isLoading = false;
 
   // Paystack config
@@ -45,7 +47,7 @@ const Checkout = () => {
 
   //If payment is successful
   const onSuccess = () => {
-    console.log("successful");
+    router.replace("/confirmed");
   };
 
   //If dialog is closed
@@ -90,7 +92,7 @@ const Checkout = () => {
           </p>
         </div>
       </div>
-      <section className="w-fit border xl:w-[45%] items-center flex flex-col justify-between">
+      <section className="w-fit xl:w-[45%] items-center flex flex-col justify-between">
         <div>
           <h2 className="text-2xl font-bold">Checkout</h2>
           <p className="mb-10">

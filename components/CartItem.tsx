@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { formatCurrency } from "@/utils/formatCurrency";
+import Link from "next/link";
 
 type CartItemProps = {
   id: string;
@@ -39,15 +40,18 @@ const CartItem = (
   return (
     <div className="flex justify-between">
       <div className="flex gap-x-2 xl:gap-x-6">
-        <div className="w-24 lg:w-40 lg:h-40 h-24 overflow-hidden border">
-          <Image
-            src={urlForImage(item.gallery[0])}
-            alt="product-image"
-            height={700}
-            width={1280}
-            className="object-cover object-center w-full h-full"
-          />
-        </div>
+        <Link href={`/products/${item.slug.current}`}>
+          <div className="w-24 lg:w-40 lg:h-40 h-24 overflow-hidden border">
+            <Image
+              src={urlForImage(item.gallery[0])}
+              alt="product-image"
+              height={700}
+              width={1280}
+              className="object-cover object-center w-full h-full"
+            />
+          </div>
+        </Link>
+
         <div className="flex flex-col justify-between">
           <div>
             <p className="text-sm xl:text-base text-slate-500">{item.title}</p>
@@ -64,13 +68,9 @@ const CartItem = (
       </div>
       <div className="flex flex-col md:flex-row-reverse md:items-center md:gap-x-6 justify-between">
         <h4 className="text-xl font-bold">
-          {formatCurrency(quantity * item.price)}
+          {formatCurrency(quantity * item.price)} <br />
+          <span className="text-base font-normal">{quantity} in cart</span>
         </h4>
-        <div className="flex items-center">
-          <Button className="rounded-none">-</Button>
-          <p className="px-2">{quantity}</p>
-          <Button className="rounded-none">+</Button>
-        </div>
       </div>
     </div>
   );

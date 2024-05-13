@@ -4,6 +4,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { getSingleProduct } from "@/sanity/sanity.query";
 import { Products } from "@/typings";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { BeatLoader } from "react-spinners";
 
 import ProductSwiper from "@/components/ProductSwiper";
 import React, { useEffect, useState } from "react";
@@ -35,9 +36,9 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
   if (!data) {
     return (
       <div className="h-screen border w-screen flex flex-col items-center justify-center z-50">
-        <h2 className="text-5xl xl:text-7xl text-center">
+        <h2 className="text-5xl xl:text-7xl text-center text-[#008080]">
           Amal Shades <br />
-          Loading...
+          <BeatLoader size={50} color="#008080" speedMultiplier={0.4} />
         </h2>
       </div>
     );
@@ -56,7 +57,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
         </div>
         <div className="">
           <h1 className="text-lg mt-4 text-slate-600">{data.title}</h1>
-          <h4 className="my-2 text-3xl font-semibold">
+          <h4 className="my-2 text-3xl font-semibold text-[#1a4848]">
             {formatCurrency(data.price)}
           </h4>
           {quantity === 0 ? (
@@ -69,7 +70,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
           ) : (
             <div>
               <div className="flex mb-5 items-center gap-2">
-                <p className="font-bold">Quantity:</p>
+                <p className="font-bold text-[#1a4848]">Quantity:</p>
                 <Button
                   onClick={() => decreaseCartQty(data._id)}
                   variant="outline"
@@ -77,7 +78,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
                 >
                   -
                 </Button>
-                <p>{quantity}</p>
+                <p className="text-[#1a4848]">{quantity}</p>
                 <Button
                   onClick={() => increaseCartQty(data._id)}
                   variant="outline"
@@ -88,7 +89,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
               </div>
               <Button
                 onClick={() => removeFromCart(data._id)}
-                className="rounded-none px-10"
+                className="rounded-none bg-[#1a4848] px-10"
               >
                 Remove from cart
               </Button>

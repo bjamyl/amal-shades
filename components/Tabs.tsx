@@ -22,14 +22,14 @@ export default function Works({ product }: { product: Products }) {
       );
     } else if (toggle === 2) {
       return (
-        <div className="flex gap-x-2">
-          <ul className="font-bold">
+        <div className="flex gap-x-6">
+          <ul className="font-bold space-y-3">
             <li>Size:</li>
             <li>Color:</li>
             <li>Shape:</li>
             <li>Rim:</li>
           </ul>
-          <ul>
+          <ul className="space-y-3">
             <li>{product.size[0]}</li>
             <li>{product.color}</li>
             <li>{product.shape}</li>
@@ -40,9 +40,9 @@ export default function Works({ product }: { product: Products }) {
     }
   };
   return (
-    <div className=" ">
+    <div className="mt-12">
       <div>
-        <ul className="font-gilroyLight xl:text-2xl flex gap-4  mt-5">
+        <ul className="text-2xl xl:text-3xl flex gap-10  mt-5">
           <li
             onClick={() => toggleTab(1)}
             className={`${

@@ -46,7 +46,7 @@ const ShoppingCart = ({ initialProducts }: ProductProps) => {
           cartItems.map((item, i) => <CartItem key={i} {...item} />)
         )}
       </div>
-      <div className="bg-slate-50 p-2 md:p-4 flex items-end gap-x-10 md:justify-between md:gap-x-0 fixed bottom-0  h-20 w-full">
+      <div className="bg-slate-50 p-2 md:p-4 flex items-end gap-x-10  md:gap-x-0 fixed justify-between bottom-0  h-20 w-full">
         <div>
           <p className="text-slate-500">Subtotal</p>
           <p className="text-xl lg:text-2xl">{formatCurrency(totalAmount)}</p>

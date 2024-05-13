@@ -13,13 +13,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
+import { BeatLoader } from "react-spinners";
 
-type HeroProps = {
-  initialData: BannerType[];
-};
-
-const Hero = ({ initialData }: HeroProps) => {
-  const [data, setData] = useState(initialData);
+const Hero = () => {
+  const [data, setData] = useState<BannerType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,12 +27,12 @@ const Hero = ({ initialData }: HeroProps) => {
     fetchData();
   }, []);
 
-  if (!data) {
+  if (!data || data.length === 0) {
     return (
       <div className="h-screen border w-screen flex flex-col items-center justify-center z-50">
-        <h2 className="text-5xl xl:text-7xl text-center">
+        <h2 className="text-5xl xl:text-7xl font-bold text-[#008080] text-center">
           Amal Shades <br />
-          Loading...
+          <BeatLoader size={50} color="#008080" speedMultiplier={0.4}/>
         </h2>
       </div>
     );

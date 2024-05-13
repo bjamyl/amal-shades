@@ -31,33 +31,38 @@ import { ShippingRate } from "@/typings";
 
 const formSchema = z.object({
   emailAddress: z.string().email(),
-  region: z.number(),
+  region: z.string(),
   city: z.string().min(2),
   address: z.string(),
 });
 
 const Checkout = () => {
-  let { totalAmount } = useShoppingCart();
-  const [email, setEmail] = useState("");
+  //Declare router instance
+  const router = useRouter();
+
+  let { totalAmount, setAmount, saveMail } = useShoppingCart();
   const [rates, setRates] = useState<ShippingRate[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      emailAddress: "",
+      region: "",
     },
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("submitted these values", {
       email: values.emailAddress,
-      FaRegClosedCaptioning: values.region,
+      region: values.region,
       city: values.city,
       address: values.address,
     });
 
-    setEmail(values.emailAddress);
-    totalAmount = totalAmount + 10
+    const finalRate = parseInt(values.region.split(",")[1]);
+
+    setAmount(totalAmount + finalRate);
+    saveMail(values.emailAddress);
+    router.push("/checkout");
   };
 
   useEffect(() => {
@@ -84,12 +89,10 @@ const Checkout = () => {
           </p>
         </div>
       </div>
-      <section className="w-fit border xl:w-[45%] items-center flex flex-col justify-between">
+      <section className="w-fit xl:w-[45%] items-center flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Checkout</h2>
-          <p className="mb-10">
-            Please provide your information and shipping details
-          </p>
+          <h2 className="text-2xl font-bold">Checkout: Address</h2>
+          <p className="mb-10">Please provide your location and address</p>
 
           <Form {...form}>
             <form
@@ -124,6 +127,7 @@ const Checkout = () => {
                       <FormLabel>Region</FormLabel>
                       <Select
                         onValueChange={field.onChange}
+                        defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -133,8 +137,14 @@ const Checkout = () => {
                         <SelectContent>
                           {rates &&
                             rates.map((rate, i) => (
-                              <SelectItem value={rate.cost.toString()+','+rate.region} key={i}>
+                              <SelectItem
+                                value={`${rate.region},${rate.cost}`}
+                                key={rate.region}
+                              >
                                 {rate.region}
+                                <p className="text-sm font-bold">
+                                  {formatCurrency(rate.cost)}
+                                </p>
                               </SelectItem>
                             ))}
                         </SelectContent>

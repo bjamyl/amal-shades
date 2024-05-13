@@ -22,22 +22,19 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { usePaystackPayment } from "react-paystack";
 import { useState } from "react";
 
-import { Splide, SplideSlide } from "@splidejs/react-splide";
 const formSchema = z.object({
   fullname: z.string().min(2),
-  emailAddress: z.string().email(),
   phoneNumber: z.string().min(10),
   city: z.string().min(2),
 });
 
 const Checkout = () => {
-  const { totalAmount } = useShoppingCart();
-  const [email, setEmail] = useState("");
+  const { totalAmount, mail } = useShoppingCart();
 
   // Paystack config
   const config = {
     reference: new Date().getTime().toString(),
-    email: "user@example.com",
+    email: mail,
     currency: "GHS",
     amount: totalAmount * 100,
     publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
@@ -58,20 +55,15 @@ const Checkout = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      emailAddress: "",
-    },
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    alert(mail);
     console.log("submitted these values", {
-      email: values.emailAddress,
       fullname: values.fullname,
       phoneNnumber: values.phoneNumber,
       city: values.city,
     });
-
-    setEmail(values.emailAddress);
 
     initializePayment(onSuccess, onClose);
   };
@@ -112,25 +104,6 @@ const Checkout = () => {
                       <FormLabel>Full name</FormLabel>
                       <FormControl>
                         <Input placeholder="John Doe" {...field} type="text" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-              <FormField
-                control={form.control}
-                name="emailAddress"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="johndoe@amalshades.com"
-                          {...field}
-                          type="email"
-                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

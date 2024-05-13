@@ -41,7 +41,7 @@ export function ShoppingCartProvider({
   );
 
   const [totalAmount, setTotalAmount] = useLocalStorage("total-amount", 0);
-  const [mail, setMail] = useState("");
+  const [mail, setMail] = useLocalStorage("amal-mail", "");
   const [rate, setRate] = useState(0);
 
   const setAmount = (total: number) => {

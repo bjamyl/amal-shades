@@ -54,7 +54,7 @@ const ShoppingCart = ({ initialProducts }: ProductProps) => {
             Cart is empty.
           </Button>
         ) : (
-          <Link href="/checkout">
+          <Link href="/checkout/address">
             <Button className="rounded-none md:px-10 md:py-5">Checkout</Button>
           </Link>
         )}

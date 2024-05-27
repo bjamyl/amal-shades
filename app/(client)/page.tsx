@@ -8,6 +8,7 @@ import LatestAccessories from "@/components/LatestAccessories";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
         <GFA />
         <LatestAccessories />
         <Testimonials />
+        <FAQ />
         <Footer />
       </main>
     </ShoppingCartProvider>

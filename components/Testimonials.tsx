@@ -1,26 +1,59 @@
+"use client";
 import { TestimonialCardProps } from "@/typings";
-import TestimonialCard from "./TestimonialCard";
 import { getTestimonials } from "@/sanity/sanity.query";
+import TestimonialsSwiper from "./TestimonialsSwiper";
+import { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
 
-const Testimonials = async () => {
-  const testimonials: TestimonialCardProps[] = await getTestimonials();
-  return (
-    <section className=" container__layout bg-[#F5F5FF]">
-      <div className="layout__all">
-        <h2 className="text-3xl">Reviews</h2>
-        <p className="mt-3 mb-10 text-slate-600">
-          Hear from our wonderful clients from all over Ghana and beyond
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
-          {testimonials.map((item: TestimonialCardProps, i) => (
-            <TestimonialCard
-              image={item.image}
-              message={item.message}
-              name={item.name}
-              key={i}
-            />
-          ))}
+const Testimonials = () => {
+  const [data, setData] = useState<TestimonialCardProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const testimonials: TestimonialCardProps[] = await getTestimonials();
+      setData(testimonials);
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data || data.length === 0) {
+    return (
+      <section className=" container__layout border bg-slate-100">
+        <div className="layout__all flex flex-col text-center justify-center">
+          <h2 className="text-3xl">Testimonials</h2>
+          <p className="mt-3 mb-10 text-slate-600">
+            Don't take our word for it. Trust our clients!
+          </p>
+          <div className="flex flex-col justify-center items-center text-center">
+            <div className="flex border flex-col  items-center space-y-8 p-6">
+              <p className="text-slate-600 md:text-lg max-w-[500px]"></p>
+              <div className="flex justify-between">
+                <div>
+                  <p className="font-medium md:text-lg">
+                    <BeatLoader
+                      size={20}
+                      color="#008080"
+                      speedMultiplier={0.4}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className=" container__layout border bg-slate-100">
+      <div className="layout__all flex flex-col text-center justify-center">
+        <h2 className="text-3xl">Testimonials</h2>
+        <p className="mt-3 mb-10 text-slate-600">
+          Don't take our word for it. Trust our clients!
+        </p>
+        <TestimonialsSwiper testimonials={data} />
       </div>
     </section>
   );

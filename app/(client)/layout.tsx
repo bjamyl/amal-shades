@@ -1,13 +1,39 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Lato } from "next/font/google";
+import localFont from "next/font/local";
+
 import "../globals.css";
 import {
   ShoppingCartProvider,
 } from "@/context/ShoppingCartContext";
 
 const lato = Lato({ subsets: ["latin"], weight: ["100", "300", "700", "400"] });
+
+const PPNeueMontreal = localFont({
+  src: [
+    {
+      path: "../fonts/montreal-bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/montreal-medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/montreal-regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/montreal-thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+  ],
+});
+
 
 export const metadata: Metadata = {
   title: "Amal-Shades: Affordable, Quality Eyewear for All",
@@ -21,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lato.className}>
+      <body className={PPNeueMontreal.className}>
         <ShoppingCartProvider>
           
           {children}

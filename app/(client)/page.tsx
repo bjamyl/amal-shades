@@ -9,6 +9,8 @@ import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
+import Gallery from "@/components/Gallery";
+import Contact from "@/components/Contact";
 
 const Home = () => {
   return (
@@ -21,6 +23,8 @@ const Home = () => {
         <LatestAccessories />
         <Testimonials />
         <FAQ />
+        <Gallery />
+        <Contact />
         <Footer />
       </main>
     </ShoppingCartProvider>

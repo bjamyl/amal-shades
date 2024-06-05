@@ -24,7 +24,8 @@ export const Navbar = () => {
           <li>All products</li>
           <li>Gents</li>
           <li>Ladies</li>
-          <li>About Us</li>
+          <li>Accessories</li>
+          <li>About us</li>
         </ul>
         <div className="flex justify-center items-center gap-2">
           <button className="relative cursor-pointer">

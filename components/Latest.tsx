@@ -17,7 +17,7 @@ const Latest = ({ title, description, products }: LatestProps) => {
     <section className="my-16 layout__all">
       <div className="flex flex-col items-start md:flex-row md:justify-between md:items-start">
         <div>
-          <h2 className="text-3xl">{title}</h2>
+          <h2 className="text-3xl md:text-5xl font-bold">{title}</h2>
           <p className="mt-3 text-slate-600">
             {description}
           </p>

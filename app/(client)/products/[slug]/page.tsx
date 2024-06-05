@@ -63,13 +63,13 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
           {quantity === 0 ? (
             <Button
               onClick={() => increaseCartQty(data._id)}
-              className="rounded-none px-10"
+              className="bg-[#1a4848] rounded-none px-10"
             >
-              Add to cart{" "}
+              Select lenses
             </Button>
           ) : (
             <div>
-              <div className="flex mb-5 items-center gap-2">
+              {/* <div className="flex mb-5 items-center gap-2">
                 <p className="font-bold text-[#1a4848]">Quantity:</p>
                 <Button
                   onClick={() => decreaseCartQty(data._id)}
@@ -86,7 +86,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
                 >
                   +
                 </Button>
-              </div>
+              </div> */}
               <Button
                 onClick={() => removeFromCart(data._id)}
                 className="rounded-none bg-[#1a4848] px-10"

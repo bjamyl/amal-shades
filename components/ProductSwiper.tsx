@@ -39,6 +39,7 @@ export default function ProductSwiper({ product }: { product: Products }) {
                 alt="product-image"
                 height={700}
                 width={1280}
+                priority={true}
                 className="object-cover object-center w-full h-full"
               />
             </div>
@@ -50,7 +51,7 @@ export default function ProductSwiper({ product }: { product: Products }) {
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={3}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
@@ -64,6 +65,7 @@ export default function ProductSwiper({ product }: { product: Products }) {
                 alt="product-image"
                 height={700}
                 width={1280}
+                priority = {true}
                 className="object-cover w-full h-full"
               />
             </div>

@@ -1,3 +1,4 @@
+"use client"
 import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { urlForImage } from "@/sanity/lib/image";
 import { getProducts } from "@/sanity/sanity.query";

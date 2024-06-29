@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import * as z from "zod";
+import { PaystackButton } from "react-paystack";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import {
   Form,
@@ -22,6 +22,14 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { usePaystackPayment } from "react-paystack";
 import { useState } from "react";
+import { sendMail } from "@/utils/mail";
+import MailCartItem from "@/components/MailCartItem";
+import { compileConfirmTemplate } from "@/utils/emailCompiler";
+import { OrderItem, OrderProps, OrderRequestProps, Products } from "@/typings";
+import { createOrder } from "@/sanity/sanity.query";
+import orderItem from "@/utils/orderItem";
+import { useOrder } from "@/context/OrderContext";
+import { makeOrder } from "@/utils/order";
 
 const formSchema = z.object({
   fullname: z.string().min(2),
@@ -30,11 +38,36 @@ const formSchema = z.object({
 });
 
 const Checkout = () => {
-  const { totalAmount, mail } = useShoppingCart();
+  const { totalAmount, mail, cartItems, removeFromCart,saveCustomer, saveAddress, saveCity } = useShoppingCart();
 
   const router = useRouter();
 
   let isLoading = false;
+
+  //Email config
+  const initialProducts: Products[] = [];
+
+  const eurekaHTML = cartItems
+    .map((item, i) => {
+      return `<p>${MailCartItem(item, { initialProducts })}</p>`;
+    })
+    .join("");
+
+  const send = async () => {
+    await sendMail({
+      to: mail,
+      name: "Jamil",
+      subject: "Order Confirmed",
+      body: `<h3>Hello Jamil</h3> <p>Thank you for shopping with Amal! 
+            Your order is being processed and you will receive an email when it is shipped!</p>
+            <h4>Amount Paid: GHS${totalAmount}.00</h4>
+            <p>You ordered for:</p>
+            <div>
+            ${eurekaHTML}
+            </div>
+            `,
+    });
+  };
 
   // Paystack config
   const config = {
@@ -45,35 +78,30 @@ const Checkout = () => {
     publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
   };
 
-  //If payment is successful
-  const onSuccess = () => {
-    router.replace("/confirmed");
+  const payStackButtonProps = {
+    email: mail,
+    amount: totalAmount * 100,
+    currency: "GHS",
+    publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
+    text: `Pay ${formatCurrency(totalAmount)} with Paystack`,
+    onSuccess: () => {
+      router.replace("/confirmed");
+    },
+    onClose: () => {
+      alert("You have canceled the payment");
+    },
   };
-
-  //If dialog is closed
-  const onClose = () => {
-    console.log("closed");
-  };
-
-  //Init payment with config
-  const initializePayment = usePaystackPayment(config);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    isLoading = true;
+    saveCustomer(values.fullname)
     console.log("submitted these values", {
       fullname: values.fullname,
       phoneNnumber: values.phoneNumber,
       city: values.city,
-    });
-
-    initializePayment({
-      onSuccess: onSuccess,
-      onClose: onClose,
-      config: config,
     });
   };
 
@@ -153,7 +181,10 @@ const Checkout = () => {
                   );
                 }}
               />
-              <Button type="submit" className="w-full mt-2 flex gap-4">
+              <Button type="submit">
+                <PaystackButton {...payStackButtonProps} />
+              </Button>
+              {/* <Button type="submit" className="w-full mt-2 flex gap-4">
                 {isLoading ? (
                   <ClipLoader />
                 ) : (
@@ -162,7 +193,7 @@ const Checkout = () => {
                     {formatCurrency(totalAmount)} with Paystack
                   </div>
                 )}
-              </Button>
+              </Button> */}
             </form>
           </Form>
         </div>

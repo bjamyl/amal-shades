@@ -28,12 +28,14 @@ export const Navbar = () => {
           <li>About us</li>
         </ul>
         <div className="flex justify-center items-center gap-2">
-          <button className="relative cursor-pointer">
-            <BsHandbag onClick={() => setIsOpen(!isOpen)} size={23} />
+          <div onClick={() => setIsOpen(!isOpen)} className="relative cursor-pointer">
+            <button className=" ">
+              <BsHandbag  size={23} />
+            </button>
             <p className="bg-slate-300 h-5 w-5 absolute top-3 left-3 text-sm flex items-center justify-center rounded-full">
               {cartQuantity}
             </p>
-          </button>
+          </div>
           <div className="lg:hidden">
             <Hamburger size={24} />
           </div>
@@ -41,7 +43,7 @@ export const Navbar = () => {
       </nav>
       <AnimatePresence>
         <Modal isVisible={isOpen} onClose={() => setIsOpen(!isOpen)}>
-          <ShoppingCart initialProducts={[]}/>
+          <ShoppingCart initialProducts={[]} />
         </Modal>
       </AnimatePresence>
     </header>

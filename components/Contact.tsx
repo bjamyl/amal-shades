@@ -4,11 +4,11 @@ import Image from "next/image";
 import * as z from "zod";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ClipLoader } from "react-spinners";
 
-import { toast } from "sonner";
 import {
   Form,
   FormField,
@@ -18,6 +18,7 @@ import {
   FormControl,
 } from "@/components/ui/form";
 import { Textarea } from "./ui/textarea";
+import { sendMail } from "@/utils/mail";
 
 const formSchema = z.object({
   firstName: z.string().min(2),
@@ -36,7 +37,26 @@ const Contact = () => {
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    console.log("submitted");
+    await sendMail({
+      to: values.email,
+      name: values.firstName,
+      subject: "Reaching out to Amal Shades",
+      body: `
+      <h3>
+      Reaching out about something</h3>
+
+      <p>
+
+      ${values.message}
+      </p>
+      <p>
+      My number: ${values.phone}.
+      From: ${values.firstName}
+      </p>
+      `,
+    });
+    setIsLoading(false)
+    toast("Thank you! We have got your message.")
   };
 
   return (
@@ -44,7 +64,9 @@ const Contact = () => {
       <div className="layout__all">
         <div className="grid lg:grid-cols-2 lg:gap-x-10">
           <div>
-            <h2 className="text-3xl md:text-5xl font-bold">Get in touch</h2>
+            <h2 className="text-[#1a4848] text-3xl md:text-5xl font-bold">
+              Get in touch
+            </h2>
             <p className="mt-3 mb-10 text-slate-600">
               Our friendly team would love to hear from you
             </p>
@@ -148,7 +170,7 @@ const Contact = () => {
                 />
                 <Button
                   type="submit"
-                  className="mt-2 md:w-1/2 lg:w-full flex gap-4"
+                  className="bg-[#1a4848] rounded-none mt-2 md:w-1/2 lg:w-full flex gap-4"
                 >
                   {isLoading ? (
                     <ClipLoader color="white" size={16} />

@@ -25,6 +25,12 @@ export default defineType({
       type: "number",
     }),
     defineField({
+      name: "stock",
+      title: "Stock",
+      description: "Add the quantity of items you have in stock",
+      type: "number",
+    }),
+    defineField({
       name: "gallery",
       type: "array",
       description: "Upload all images of the item",

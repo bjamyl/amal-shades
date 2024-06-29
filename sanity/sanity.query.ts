@@ -1,5 +1,6 @@
 import { groq } from "next-sanity";
 import { client } from "./lib/client";
+import { OrderItem, OrderProps, OrderRequestProps } from "@/typings";
 
 const slugQuery = groq`     
 *[_type == "product" && slug.current == $slug[0]]`;
@@ -36,4 +37,28 @@ const shipping = groq`
 
 export async function getShippingRates() {
   return client.fetch(shipping);
+}
+
+export async function updateStock(
+  _id: string,
+  quantity: number,
+  stock: number
+) {
+  let finalStock = stock - quantity;
+  return client.patch(_id).set({ stock: finalStock });
+}
+
+const orders = groq`
+*[_type == "order"]`;
+export async function getOrders() {
+  return client.fetch(orders);
+}
+
+export async function getSingleOrder(id: string) {
+  return client.fetch(`*[_type == "order" && _id == "${id}"][0]`);
+}
+
+//Creating an order
+export async function createOrder(order: OrderRequestProps) {
+  return client.create(order);
 }

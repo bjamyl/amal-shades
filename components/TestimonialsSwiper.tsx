@@ -27,17 +27,16 @@ const TestimonialsSwiper = ({
         pagination={{
           clickable: true,
         }}
-        
         modules={[Autoplay, Pagination, Navigation]}
         className="w-[500px"
       >
         {testimonials.map((item: TestimonialCardProps, i) => (
-          <SwiperSlide>
+          <SwiperSlide key={i} >
             <TestimonialCard
+              
               image={item.image}
               message={item.message}
               name={item.name}
-              key={i}
             />
           </SwiperSlide>
         ))}

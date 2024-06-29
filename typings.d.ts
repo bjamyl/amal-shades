@@ -20,6 +20,7 @@ interface Products extends SanityBase {
   size: string[];
   rim: string;
   color: string;
+  stock: number;
 }
 
 interface TestimonialCardProps {
@@ -37,4 +38,36 @@ interface BannerType {
 interface ShippingRate {
   region: string;
   cost: number;
+}
+
+interface OrderItem {
+  itemName: string;
+  price: number;
+  quantity: number;
+}
+
+interface OrderProps extends SanityBase {
+  _type: "order";
+  items: OrderItem[];
+  total: number;
+  shipping: number;
+  customer: string;
+  email: string;
+  address: string;
+  region: string;
+  city: string;
+  phone: string;
+}
+
+interface OrderRequestProps {
+  _type: "order";
+  items: OrderItem[];
+  total: number;
+  shipping: number;
+  customer: string;
+  email: string;
+  address: string;
+  region: string;
+  city: string;
+  phone: string;
 }

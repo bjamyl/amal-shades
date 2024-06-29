@@ -37,20 +37,22 @@ const formSchema = z.object({
   address: z.string(),
 });
 
-const Checkout = () => {
-  //Declare router instance
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
-  let { totalAmount, setAmount, saveMail } = useShoppingCart();
-  const [rates, setRates] = useState<ShippingRate[]>([]);
-
+const Address = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       region: "",
     },
   });
+  //Declare router instance
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  let { totalAmount, setAmount, saveMail, saveRegion, saveCity, saveAddress } =
+    useShoppingCart();
+  const [rates, setRates] = useState<ShippingRate[]>([]);
+
+ 
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
@@ -62,8 +64,12 @@ const Checkout = () => {
     });
 
     const finalRate = parseInt(values.region.split(",")[1]);
+    const region = values.region.split(",")[0];
 
     setAmount(totalAmount + finalRate);
+    saveRegion(region);
+    saveCity(values.city);
+    saveAddress(values.address)
     saveMail(values.emailAddress);
     router.push("/checkout");
   };
@@ -201,4 +207,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Address;

@@ -6,7 +6,7 @@ const Gallery = () => {
     <section className="">
       <div className="container__layout">
         <div className="layout__all">
-          <h2 className="text-3xl md:text-5xl font-bold">
+          <h2 className="text-[#1a4848] text-3xl md:text-5xl font-bold">
             Look Good. Feel Good in Amal!
           </h2>
           <p className="mt-3 mb-10 text-slate-600">

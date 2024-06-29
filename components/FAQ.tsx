@@ -11,7 +11,7 @@ const FAQ = () => {
       <div className="layout__all">
         <div className="md:grid md:grid-cols-2 md:gap-x-10">
           <div>
-            <h2 className="text-3xl md:text-5xl font-bold">
+            <h2 className="text-[#1a4848] text-3xl md:text-5xl font-bold">
               Frequently asked questions
             </h2>
             <p className="mt-3 mb-10 text-slate-600">

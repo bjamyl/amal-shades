@@ -18,6 +18,18 @@ type ShoppingCartContext = {
   mail: string;
   setShippingRates: (rates: number) => void;
   rate: number;
+  slug: string;
+  storeSlug: (slug: string) => void;
+  address: string;
+  saveAddress: (address: string) => void;
+  region: string;
+  saveRegion: (region: string) => void;
+  city: string;
+  saveCity: (city: string) => void;
+  phone: string;
+  savePhone: (phone: string) => void;
+  customer: string;
+  saveCustomer: (customer: string) => void;
 };
 
 type CartItem = {
@@ -43,6 +55,36 @@ export function ShoppingCartProvider({
   const [totalAmount, setTotalAmount] = useLocalStorage("total-amount", 0);
   const [mail, setMail] = useLocalStorage("amal-mail", "");
   const [rate, setRate] = useState(0);
+  const [slug, setSlug] = useState("");
+  const [address, setAddress] = useLocalStorage("address", "");
+  const [region, setRegion] = useLocalStorage("region", "");
+  const [city, setCity] = useLocalStorage("city", "");
+  const [phone, setPhone] = useLocalStorage("phone", "");
+  const [customer, setCustomer] = useLocalStorage("customer", "");
+
+  const saveCustomer = (customer: string) => {
+    setCustomer(customer);
+  };
+
+  const saveAddress = (address: string) => {
+    setAddress(address);
+  };
+
+  const saveRegion = (region: string) => {
+    setRegion(region);
+  };
+
+  const saveCity = (city: string) => {
+    setCity(city);
+  };
+
+  const savePhone = (phone: string) => {
+    setPhone(phone);
+  };
+
+  const storeSlug = (slug: string) => {
+    setSlug(slug);
+  };
 
   const setAmount = (total: number) => {
     setTotalAmount(total);
@@ -118,6 +160,18 @@ export function ShoppingCartProvider({
         mail,
         rate,
         setShippingRates,
+        slug,
+        storeSlug,
+        city,
+        saveCity,
+        address,
+        saveAddress,
+        phone,
+        savePhone,
+        region,
+        saveRegion,
+        customer,
+        saveCustomer,
       }}
     >
       {children}

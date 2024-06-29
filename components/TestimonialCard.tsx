@@ -9,7 +9,7 @@ const TestimonialCard = ({ message, name, image }: TestimonialCardProps) => {
         <p className="text-slate-600 md:text-lg max-w-[500px]">{message}</p>
         <div className="flex justify-between">
           <div>
-            <p className="font-medium md:text-lg">{name}</p>
+            <p className="font-medium md:text-lg text-[#1a4848]">{name}</p>
           </div>
           {/* <img
             src={urlForImage(image)}

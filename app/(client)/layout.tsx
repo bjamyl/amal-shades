@@ -6,6 +6,8 @@ import "../globals.css";
 import {
   ShoppingCartProvider,
 } from "@/context/ShoppingCartContext";
+import { Toaster } from "@/components/ui/sonner"
+
 
 const lato = Lato({ subsets: ["latin"], weight: ["100", "300", "700", "400"] });
 
@@ -53,6 +55,7 @@ export default function RootLayout({
           {children}
           
         </ShoppingCartProvider>
+        <Toaster />
       </body>
     </html>
   );

@@ -66,7 +66,7 @@ const Hero = () => {
           ))}
       </Swiper>
       <div className="absolute z-30 bottom-8 xl:bottom-36 xl:left-36 mx-6">
-        <h1 className="text-5xl font-bold lg:text-7xl">
+        <h1 className="text-[#1a4848] text-5xl font-bold lg:text-7xl">
           {data && data[0].heading}
         </h1>
         <p className="mt-2 mb-5 lg:text-lg">{data && data[0].subheading}</p>

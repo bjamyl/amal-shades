@@ -27,15 +27,15 @@ export default function orderItem(
     fetchData();
   }, []);
 
-  const item = products.find((i) => i._id === id) 
+  const item = products ? products.find((i) => i._id === id) : null;
 
-  if (item == null) return {itemName:"", quantity:0, price:0, stock:0};
+  if (item == null) return null;
 
   const finalOrder = {
     itemName: item.title,
     quantity,
     price: item.price,
-    stock: item.stock
+    stock: item.stock,
   };
 
   return finalOrder;

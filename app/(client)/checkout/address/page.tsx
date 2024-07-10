@@ -48,7 +48,7 @@ const Address = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  let { totalAmount, setAmount, saveMail, saveRegion, saveCity, saveAddress } =
+  let { totalAmount, saveTotalAmount, saveMail, saveRegion, saveCity, saveAddress, saveDelivery } =
     useShoppingCart();
   const [rates, setRates] = useState<ShippingRate[]>([]);
 
@@ -66,11 +66,12 @@ const Address = () => {
     const finalRate = parseInt(values.region.split(",")[1]);
     const region = values.region.split(",")[0];
 
-    setAmount(totalAmount + finalRate);
+    saveTotalAmount(totalAmount + finalRate);
     saveRegion(region);
     saveCity(values.city);
     saveAddress(values.address)
     saveMail(values.emailAddress);
+    saveDelivery(finalRate)
     router.push("/checkout");
   };
 

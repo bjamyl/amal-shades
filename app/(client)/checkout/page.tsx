@@ -3,7 +3,6 @@ import Link from "next/link";
 import * as z from "zod";
 import { PaystackButton } from "react-paystack";
 import { useRouter } from "next/navigation";
-import { ClipLoader } from "react-spinners";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -44,30 +43,6 @@ const Checkout = () => {
 
   let isLoading = false;
 
-  //Email config
-  const initialProducts: Products[] = [];
-
-  const eurekaHTML = cartItems
-    .map((item, i) => {
-      return `<p>${MailCartItem(item, { initialProducts })}</p>`;
-    })
-    .join("");
-
-  const send = async () => {
-    await sendMail({
-      to: mail,
-      name: "Jamil",
-      subject: "Order Confirmed",
-      body: `<h3>Hello Jamil</h3> <p>Thank you for shopping with Amal! 
-            Your order is being processed and you will receive an email when it is shipped!</p>
-            <h4>Amount Paid: GHS${totalAmount}.00</h4>
-            <p>You ordered for:</p>
-            <div>
-            ${eurekaHTML}
-            </div>
-            `,
-    });
-  };
 
   // Paystack config
   const config = {

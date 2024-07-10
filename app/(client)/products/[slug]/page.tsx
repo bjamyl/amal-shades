@@ -71,7 +71,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
           </h4>
           {quantity === 0 ? (
             <Button
-              onClick={() => increaseCartQty(data._id)}
+              onClick={() => increaseCartQty(data._id, data.title, data.price)}
               className="bg-[#1a4848] rounded-none px-10"
             >
               Select lenses

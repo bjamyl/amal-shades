@@ -7,13 +7,13 @@ import { useContext, createContext } from "react";
 
 type ShoppingCartContext = {
   getItemQty: (id: string) => number;
-  increaseCartQty: (id: string) => void;
+  increaseCartQty: (id: string, name: string, price: number) => void;
   decreaseCartQty: (id: string) => void;
   removeFromCart: (id: string) => void;
   cartQuantity: number;
   cartItems: CartItem[];
   totalAmount: number;
-  setAmount: (total: number) => void;
+  saveTotalAmount: (total: number) => void;
   saveMail: (email: string) => void;
   mail: string;
   setShippingRates: (rates: number) => void;
@@ -30,11 +30,15 @@ type ShoppingCartContext = {
   savePhone: (phone: string) => void;
   customer: string;
   saveCustomer: (customer: string) => void;
+  delivery: number;
+  saveDelivery: (shipping: number) => void;
 };
 
 type CartItem = {
   id: string;
+  name: string;
   quantity: number;
+  price: number;
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -61,9 +65,14 @@ export function ShoppingCartProvider({
   const [city, setCity] = useLocalStorage("city", "");
   const [phone, setPhone] = useLocalStorage("phone", "");
   const [customer, setCustomer] = useLocalStorage("customer", "");
+  const [delivery, setDelivery] = useLocalStorage("shipping", 0);
 
   const saveCustomer = (customer: string) => {
     setCustomer(customer);
+  };
+
+  const saveDelivery = (shipping: number) => {
+    setDelivery(shipping);
   };
 
   const saveAddress = (address: string) => {
@@ -86,7 +95,7 @@ export function ShoppingCartProvider({
     setSlug(slug);
   };
 
-  const setAmount = (total: number) => {
+  const saveTotalAmount = (total: number) => {
     setTotalAmount(total);
   };
 
@@ -107,10 +116,10 @@ export function ShoppingCartProvider({
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
-  function increaseCartQty(id: string) {
+  function increaseCartQty(id: string, name: string, price: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1 }];
+        return [...currItems, { id, name, price, quantity: 1 }];
       } else {
         return currItems.map((item) => {
           if (item.id === id) {
@@ -155,7 +164,7 @@ export function ShoppingCartProvider({
         cartItems,
         cartQuantity,
         totalAmount,
-        setAmount,
+        saveTotalAmount,
         saveMail,
         mail,
         rate,
@@ -172,6 +181,8 @@ export function ShoppingCartProvider({
         saveRegion,
         customer,
         saveCustomer,
+        delivery,
+        saveDelivery,
       }}
     >
       {children}

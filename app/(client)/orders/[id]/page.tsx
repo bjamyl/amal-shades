@@ -234,19 +234,6 @@ const Order = ({ params }: Props, { initialOrder }: IniOrderProps) => {
               </div>
             </dl>
           </div>
-          <Separator className="my-4" />
-          <div className="grid gap-3">
-            <div className="font-semibold">Payment Information</div>
-            <dl className="grid gap-3">
-              <div className="flex items-center justify-between">
-                <dt className="flex items-center gap-1 text-muted-foreground">
-                  <CreditCard className="h-4 w-4" />
-                  Visa
-                </dt>
-                <dd>**** **** **** 4532</dd>
-              </div>
-            </dl>
-          </div>
         </CardContent>
         {/* <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">

@@ -31,6 +31,7 @@ import { ShippingRate } from "@/typings";
 import { ClipLoader } from "react-spinners";
 
 const formSchema = z.object({
+  fullname: z.string().min(2),
   emailAddress: z.string().email(),
   region: z.string(),
   city: z.string().min(2),
@@ -48,11 +49,17 @@ const Address = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  let { totalAmount, saveTotalAmount, saveMail, saveRegion, saveCity, saveAddress, saveDelivery } =
-    useShoppingCart();
+  let {
+    totalAmount,
+    saveTotalAmount,
+    saveMail,
+    saveRegion,
+    saveCity,
+    saveAddress,
+    saveDelivery,
+    savePhone,saveCustomer
+  } = useShoppingCart();
   const [rates, setRates] = useState<ShippingRate[]>([]);
-
- 
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
@@ -69,9 +76,10 @@ const Address = () => {
     saveTotalAmount(totalAmount + finalRate);
     saveRegion(region);
     saveCity(values.city);
-    saveAddress(values.address)
+    saveAddress(values.address);
     saveMail(values.emailAddress);
-    saveDelivery(finalRate)
+    saveDelivery(finalRate);
+    saveCustomer(values.fullname)
     router.push("/checkout");
   };
 
@@ -109,6 +117,23 @@ const Address = () => {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="flex flex-col gap-y-4 w"
             >
+              <FormField
+                control={form.control}
+                name="fullname"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel>Full name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} type="text" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+             
+
               <FormField
                 control={form.control}
                 name="emailAddress"

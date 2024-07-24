@@ -59,7 +59,7 @@ export function ShoppingCartProvider({
   const [totalAmount, setTotalAmount] = useLocalStorage("total-amount", 0);
   const [mail, setMail] = useLocalStorage("amal-mail", "");
   const [rate, setRate] = useState(0);
-  const [slug, setSlug] = useState("");
+  const [slug, setSlug] = useLocalStorage("current-slug", "");
   const [address, setAddress] = useLocalStorage("address", "");
   const [region, setRegion] = useLocalStorage("region", "");
   const [city, setCity] = useLocalStorage("city", "");

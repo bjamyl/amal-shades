@@ -29,20 +29,51 @@ import { createOrder } from "@/sanity/sanity.query";
 import orderItem from "@/utils/orderItem";
 import { useOrder } from "@/context/OrderContext";
 import { makeOrder } from "@/utils/order";
+import { ClipLoader } from "react-spinners";
 
 const formSchema = z.object({
-  fullname: z.string().min(2),
   phoneNumber: z.string().min(10),
-  city: z.string().min(2),
 });
 
 const Checkout = () => {
-  const { totalAmount, mail, cartItems, removeFromCart,saveCustomer, saveAddress, saveCity } = useShoppingCart();
+  const {
+    totalAmount,
+    mail,
+    cartItems,
+    address,
+    city,
+    customer,
+    phone,
+    region,
+    delivery,
+    saveCustomer,
+    removeFromCart,
+    savePhone
+  } = useShoppingCart();
 
   const router = useRouter();
 
   let isLoading = false;
 
+  //Get all order items
+  const orderItems: OrderItem[] = cartItems.map((item) => ({
+    itemName: item.name,
+    price: item.price,
+    quantity: item.quantity,
+  }));
+
+  const newOrder: OrderRequestProps = {
+    _type: "order",
+    address,
+    city,
+    customer,
+    email: mail,
+    items: orderItems,
+    phone,
+    region,
+    shipping: delivery,
+    total: totalAmount,
+  };
 
   // Paystack config
   const config = {
@@ -53,30 +84,37 @@ const Checkout = () => {
     publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
   };
 
-  const payStackButtonProps = {
-    email: mail,
-    amount: totalAmount * 100,
-    currency: "GHS",
-    publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
-    text: `Pay ${formatCurrency(totalAmount)} with Paystack`,
-    onSuccess: () => {
-      router.replace("/confirmed");
-    },
-    onClose: () => {
-      alert("You have canceled the payment");
-    },
+  //If payment is successful
+  const onSuccess = () => {
+    const fetch = async () => {
+      await createOrder(newOrder);
+    };
+    fetch();
+    cartItems.forEach((item) => removeFromCart(item.id));
+    router.replace("/confirmed");
   };
+
+  //If dialog is closed
+  const onClose = () => {
+    console.log("closed");
+  };
+
+  //Init payment with config
+  const initializePayment = usePaystackPayment(config);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    saveCustomer(values.fullname)
+    savePhone(values.phoneNumber)
     console.log("submitted these values", {
-      fullname: values.fullname,
       phoneNnumber: values.phoneNumber,
-      city: values.city,
+    });
+    initializePayment({
+      onSuccess: onSuccess,
+      onClose: onClose,
+      config: config,
     });
   };
 
@@ -107,21 +145,7 @@ const Checkout = () => {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="flex flex-col gap-y-4 w"
             >
-              <FormField
-                control={form.control}
-                name="fullname"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Full name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="John Doe" {...field} type="text" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
+          
               <FormField
                 control={form.control}
                 name="phoneNumber"
@@ -141,25 +165,7 @@ const Checkout = () => {
                   );
                 }}
               />
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>City/Town</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Eg: Accra" {...field} type="text" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-              <Button type="submit">
-                <PaystackButton {...payStackButtonProps} />
-              </Button>
-              {/* <Button type="submit" className="w-full mt-2 flex gap-4">
+              <Button type="submit" className="w-full mt-2 flex gap-4">
                 {isLoading ? (
                   <ClipLoader />
                 ) : (
@@ -168,7 +174,7 @@ const Checkout = () => {
                     {formatCurrency(totalAmount)} with Paystack
                   </div>
                 )}
-              </Button> */}
+              </Button>
             </form>
           </Form>
         </div>

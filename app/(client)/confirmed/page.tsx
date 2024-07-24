@@ -23,48 +23,48 @@ const OrderConfirmed = () => {
   } = useShoppingCart();
 
   //Get all order items
-  const orderItems: OrderItem[] = cartItems.map((item) => ({
-    itemName: item.name,
-    price: item.price,
-    quantity: item.quantity,
-  }));
+  // const orderItems: OrderItem[] = cartItems.map((item) => ({
+  //   itemName: item.name,
+  //   price: item.price,
+  //   quantity: item.quantity,
+  // }));
 
-  //Create a new order
-  const newOrder: OrderRequestProps = {
-    _type: "order",
-    address,
-    city,
-    customer,
-    email: mail,
-    items: orderItems,
-    phone,
-    region,
-    shipping: delivery,
-    total: totalAmount,
-  };
+  // //Create a new order
+  // const newOrder: OrderRequestProps = {
+  //   _type: "order",
+  //   address,
+  //   city,
+  //   customer,
+  //   email: mail,
+  //   items: orderItems,
+  //   phone,
+  //   region,
+  //   shipping: delivery,
+  //   total: totalAmount,
+  // };
 
   //Pass the order into the post function
 
   //Use UseEffect to run these functions only once when the component is mounted
-  useEffect(() => {
-    const sendReq = async () => {
-      try {
-        // Perform the order creation only if cartItems exist
-        if (cartItems.length > 0) {
-          const res = await createOrder(newOrder);
-          console.log("Order created:", res);
-        }
+  // useEffect(() => {
+  //   const sendReq = async () => {
+  //     try {
+  //       // Perform the order creation only if cartItems exist
+  //       if (cartItems.length > 0) {
+  //         const res = await createOrder(newOrder);
+  //         console.log("Order created:", res);
+  //       }
 
-        // Always clear cart items after order creation attempt
-        cartItems.forEach((item) => removeFromCart(item.id));
-      } catch (error) {
-        console.error("Error creating order:", error);
-      }
-    };
+  //       // Always clear cart items after order creation attempt
+  //       cartItems.forEach((item) => removeFromCart(item.id));
+  //     } catch (error) {
+  //       console.error("Error creating order:", error);
+  //     }
+  //   };
 
-    // Call sendReq when component mounts
-    sendReq();
-  }, []);
+  //   // Call sendReq when component mounts
+  //   sendReq();
+  // }, []);
 
   return (
     <section className="h-screen mx-6 flex items-center justify-center">

@@ -4,6 +4,8 @@ import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { Products } from "@/typings";
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const Usage = () => {
   const { slug } = useShoppingCart();
@@ -31,6 +33,12 @@ const Usage = () => {
   return (
     <section className="layout__all pt-20">
       <div>
+        <div className="flex items-center gap-2 text-[#008080]">
+          <IoMdArrowRoundBack size={20}/>
+          Back to {data.title}
+        </div>
+        {data.title}
+
         
 
       </div>

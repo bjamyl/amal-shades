@@ -9,7 +9,9 @@ import Link from "next/link";
 import ProductSwiper from "@/components/ProductSwiper";
 import React, { useEffect, useState } from "react";
 import Tabs from "@/components/Tabs";
-import Head from "next/head"
+import Head from "next/head";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 type Props = {
   params: {
@@ -56,29 +58,30 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
   }
 
   return (
-    <section className="layout__all pt-20">
-      <Head>
-        <title>Amal Shades: Viewing {data.title}</title>
-      </Head>
-      <div className=" md:grid md:grid-cols-2 md:gap-x-8">
-        <div className="">
-          <ProductSwiper product={data} />
-        </div>
-        <div className="">
-          <h1 className="text-lg mt-4 text-slate-600">{data.title}</h1>
-          <h4 className="my-2 text-3xl font-semibold text-[#1a4848]">
-            {formatCurrency(data.price)}
-          </h4>
-          {quantity === 0 ? (
-            <Button
-              onClick={() => increaseCartQty(data._id, data.title, data.price)}
-              className="bg-[#1a4848] rounded-none px-10"
-            >
-              Select lenses
-            </Button>
-          ) : (
-            <div>
-              {/* <div className="flex mb-5 items-center gap-2">
+    <>
+    <Navbar/>
+      <section className="layout__all pt-20">
+        <div className=" md:grid md:grid-cols-2 md:gap-x-8">
+          <div className="">
+            <ProductSwiper product={data} />
+          </div>
+          <div className="">
+            <h1 className="text-lg mt-4 text-slate-600">{data.title}</h1>
+            <h4 className="my-2 text-3xl font-semibold text-[#1a4848]">
+              {formatCurrency(data.price)}
+            </h4>
+            {quantity === 0 ? (
+              <Button
+                onClick={() =>
+                  increaseCartQty(data._id, data.title, data.price)
+                }
+                className="bg-[#1a4848] rounded-none px-10"
+              >
+                Select lenses
+              </Button>
+            ) : (
+              <div>
+                {/* <div className="flex mb-5 items-center gap-2">
                 <p className="font-bold text-[#1a4848]">Quantity:</p>
                 <Button
                   onClick={() => decreaseCartQty(data._id)}
@@ -96,31 +99,33 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
                   +
                 </Button>
               </div> */}
-              <Button
-                onClick={() => removeFromCart(data._id)}
-                className="rounded-none bg-[#1a4848] px-10"
-              >
-                Remove from cart
-              </Button>
+                <Button
+                  onClick={() => removeFromCart(data._id)}
+                  className="rounded-none bg-[#1a4848] px-10"
+                >
+                  Remove from cart
+                </Button>
+              </div>
+            )}
+            <div>
+              {data.stock < 4 ? (
+                <p className="text-red-700 font-medium">
+                  Item is low in stock. <br /> {data.stock} units remaining
+                </p>
+              ) : null}
             </div>
-          )}
-          <div>{data.stock < 4 ? <p className="text-red-700 font-medium">Item is low in stock. <br /> {data.stock} units remaining</p> : null}</div>
 
-          <div className="mt-6">
-            <Tabs product={data} />
+            <div className="mt-6">
+              <Tabs product={data} />
+            </div>
+            <Link href={`/products/${slug}/usage`}>
+              <Button>Go to usage</Button>
+            </Link>
           </div>
-          <Link href={`/products/${slug}/usage`}>
-            <Button
-              onClick={() => {
-                alert(slug);
-              }}
-            >
-              Go to usage
-            </Button>
-          </Link>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer/>
+    </>
   );
 };
 

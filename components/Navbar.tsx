@@ -68,7 +68,7 @@ export const Navbar = () => {
                 <li className="ml-[30px] text-lg font-medium">Accessories</li>
               </div>
               <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">About us</li>
+                <li className="ml-[30px] text-lg font-medium">About Us</li>
               </div>
             </ul>
           </motion.div>

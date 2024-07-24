@@ -2,10 +2,10 @@ import Footer from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata = {
-  title: "Amal Shades: Product",
+  title: "Prescription procedure",
 };
 
-const SingleProductLayout = ({ children }: { children: React.ReactNode }) => {
+const SingleUsageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       {children}
@@ -13,4 +13,4 @@ const SingleProductLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default SingleProductLayout;
+export default SingleUsageLayout;

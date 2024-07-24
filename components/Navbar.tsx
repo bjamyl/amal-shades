@@ -22,11 +22,21 @@ export const Navbar = () => {
         </Link>
         {/* Page Links */}
         <ul className=" gap-x-5 hover:cursor-pointer hidden lg:flex">
-          <li>All products</li>
-          <li>Gents</li>
-          <li>Ladies</li>
-          <li>Accessories</li>
-          <li>About us</li>
+          <Link href="/products">
+            <li>All products</li>
+          </Link>
+          <Link href="/men">
+            <li>Gents</li>
+          </Link>
+          <Link href="/women">
+            <li>Ladies</li>
+          </Link>
+          <Link href="/accessories">
+            <li>Accessories</li>
+          </Link>
+          <Link href="/about">
+            <li>About us</li>
+          </Link>
         </ul>
         <div className="flex justify-center items-center gap-2">
           <div

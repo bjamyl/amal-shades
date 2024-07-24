@@ -4,13 +4,13 @@ import { Products as Product } from "@/typings";
 import Image from "next/image";
 import React from "react";
 
-const Products = async () => {
+const Men = async () => {
   const products: Product[] = await getProducts();
   return (
     <div>
       <div className="relative">
         <Image
-          src="/images/allproducts.jpg"
+          src="/images/menprods.jpg"
           alt="all-products"
           width={1280}
           height={720}
@@ -18,9 +18,9 @@ const Products = async () => {
         />
         <div className="absolute bottom-10 left-10">
           <h2 className="text-white font-bold text-2xl xl:text-6xl">
-            All Products
+            Men's Products
           </h2>
-          <p className="text-white">Shop from our catalog of items</p>
+          <p className="text-white">Shop from our catalog of items selected for gents</p>
         </div>
       </div>
       <section className="my-16 layout__all">
@@ -34,4 +34,4 @@ const Products = async () => {
   );
 };
 
-export default Products;
+export default Men;

@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React from "react";
 
-const ProductsLayout = ({ children }: { children: React.ReactNode }) => {
+const WomenLayout = ({ children }: { children: React.ReactNode }) => {
   return <div>
     <Navbar/>
     {children}
@@ -10,4 +10,4 @@ const ProductsLayout = ({ children }: { children: React.ReactNode }) => {
     </div>;
 };
 
-export default ProductsLayout;
+export default WomenLayout;

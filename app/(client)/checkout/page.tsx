@@ -25,14 +25,14 @@ import { sendMail } from "@/utils/mail";
 import MailCartItem from "@/components/MailCartItem";
 import { compileConfirmTemplate } from "@/utils/emailCompiler";
 import { OrderItem, OrderProps, OrderRequestProps, Products } from "@/typings";
-import { createOrder } from "@/sanity/sanity.query";
+import { createOrder, updateStock } from "@/sanity/sanity.query";
 import orderItem from "@/utils/orderItem";
 import { useOrder } from "@/context/OrderContext";
 import { makeOrder } from "@/utils/order";
 import { ClipLoader } from "react-spinners";
 
 const formSchema = z.object({
-  phoneNumber: z.string().min(10),
+  phoneNumber: z.string().min(10,"Phone number must contain at least 10 characters"),
 });
 
 const Checkout = () => {
@@ -57,9 +57,11 @@ const Checkout = () => {
 
   //Get all order items
   const orderItems: OrderItem[] = cartItems.map((item) => ({
+    _type:"document",
     itemName: item.name,
     price: item.price,
     quantity: item.quantity,
+    prescription: item.usage
   }));
 
   const newOrder: OrderRequestProps = {
@@ -89,8 +91,16 @@ const Checkout = () => {
     const fetch = async () => {
       await createOrder(newOrder);
     };
+
+    const patchStock = async () => {
+      const promises = cartItems.map((item) => updateStock(item.id, item.quantity, item.stock));
+      await Promise.all(promises);
+    };
+    
+    patchStock();
     fetch();
     cartItems.forEach((item) => removeFromCart(item.id));
+    
     router.replace("/confirmed");
   };
 

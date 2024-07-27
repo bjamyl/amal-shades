@@ -42,9 +42,11 @@ interface ShippingRate {
 }
 
 interface OrderItem {
+  _type:"document";
   itemName: string;
   price: number;
   quantity: number;
+  prescription:string
 }
 
 interface OrderProps extends SanityBase {

@@ -74,9 +74,10 @@ const Usage = () => {
     id: string,
     name: string,
     usage: string,
-    price: number
+    price: number,
+    stock:number
   ) => {
-    increaseCartQty(id, name, usage, price);
+    increaseCartQty(id, name, usage, price, stock);
     toast(`${name} has been added to cart`);
 
     router.back();
@@ -188,7 +189,8 @@ const Usage = () => {
                         : isBlueLight
                         ? "Anti-Blue Light"
                         : "Clear",
-                      subtotal
+                      subtotal,
+                      data.stock
                     )
                   }
                   className="rounded-none px-10 bg-[#008080]"

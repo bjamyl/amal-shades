@@ -66,7 +66,7 @@ export async function updateStock(
   stock: number
 ) {
   let finalStock = stock - quantity;
-  return client.patch(_id).set({ stock: finalStock });
+  return client.patch(_id).set({ stock: finalStock }).commit();
 }
 
 const orders = groq`

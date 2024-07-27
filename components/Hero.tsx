@@ -16,27 +16,12 @@ import "swiper/css/effect-fade";
 import { BeatLoader } from "react-spinners";
 
 const Hero = () => {
-  const [data, setData] = useState<BannerType[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const banner: BannerType[] = await getBanner();
-      setData(banner);
-    };
-
-    fetchData();
-  }, []);
-
-  if (!data || data.length === 0) {
-    return (
-      <div className="h-screen border w-screen flex flex-col items-center justify-center z-50">
-        <h2 className="text-5xl xl:text-7xl font-bold text-[#008080] text-center">
-          Amal Shades <br />
-          <BeatLoader size={50} color="#008080" speedMultiplier={0.4}/>
-        </h2>
-      </div>
-    );
-  }
+  const images = [
+    "/hero/hero1.jpg",
+    "/hero/hero2.jpg",
+    "/hero/hero3.jpg",
+    "/hero/hero4.jpg",
+  ];
 
   return (
     <section className="relative">
@@ -52,26 +37,53 @@ const Hero = () => {
         }}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
       >
-        {data &&
-          data[0].gallery.map((image, index) => (
-            <SwiperSlide className="z-10" key={index}>
-              <div className="w-screen h-[55vh] md:h-[65vh] lg:h-[75vh] xl:h-screen overflow-hidden">
-                <img
-                  src={urlForImage(image)}
-                  alt="banner-image"
-                  className="object-cover w-full h-full "
-                />
-              </div>
-            </SwiperSlide>
-          ))}
+        <SwiperSlide className="z-10">
+          <div className="w-screen h-[75vh] xl:h-[95vh] overflow-hidden">
+            <img
+              src="/hero/hero3.jpg"
+              alt="banner-image"
+              className="object-cover w-full h-full brightness-50"
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="z-10">
+          <div className="w-screen h-[75vh] xl:h-[95vh] overflow-hidden">
+            <img
+              src="/hero/hero1.jpg"
+              alt="banner-image"
+              className="object-cover md:object-md-fix  w-full h-full brightness-50"
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="z-10">
+          <div className="w-screen h-[75vh] xl:h-[95vh] overflow-hidden">
+            <img
+              src="/hero/hero2.jpg"
+              alt="banner-image"
+              className="object-cover md:object-md-center w-full h-full brightness-50"
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="z-10">
+          <div className="w-screen h-[75vh] xl:h-[95vh] overflow-hidden">
+            <img
+              src="/hero/hero4.jpg"
+              alt="banner-image"
+              className="object-cover object-center md:object-md-center w-full h-full brightness-50"
+            />
+          </div>
+        </SwiperSlide>
       </Swiper>
       <div className="absolute z-30 bottom-8 xl:bottom-36 xl:left-36 mx-6">
-        <h1 className="text-[#1a4848] text-5xl font-bold lg:text-7xl">
-          {data && data[0].heading}
+        <h1 className="text-white text-5xl font-bold lg:text-7xl">
+          Find your <br className="md:hidden" /> perfect fit
         </h1>
-        <p className="mt-2 mb-5 lg:text-lg">{data && data[0].subheading}</p>
+        <p className="mt-2 mb-5 lg:text-lg text-slate-50">
+          Stylish eyewear offering fashionable options{" "}
+          <br className="md:hidden" /> beyond just corrective lenses.
+        </p>
         <Button
-          className="px-8 rounded-none bg-transparent border-slate-700 border-2"
+          className="px-8 text-white rounded-none bg-transparent border-slate-50 border-2"
           variant="outline"
         >
           Shop now

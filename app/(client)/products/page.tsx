@@ -14,13 +14,13 @@ const Products = async () => {
           alt="all-products"
           width={1280}
           height={720}
-          className="brightness-50 w-screen xl:h-[60vh] object-cover"
+          className="brightness-50 w-screen xl:h-[60vh] object-cover h-[50vh]"
         />
-        <div className="absolute bottom-10 left-10">
+        <div className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10">
           <h2 className="text-white font-bold text-2xl xl:text-6xl">
             All Products
           </h2>
-          <p className="text-white">Shop from our catalog of items</p>
+          <p className="text-white mr-6 lg:mr-0">Shop from our catalog of items</p>
         </div>
       </div>
       <section className="my-16 layout__all">

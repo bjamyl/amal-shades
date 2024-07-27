@@ -6,7 +6,6 @@ const ProductsLayout = ({ children }: { children: React.ReactNode }) => {
   return <div>
     <Navbar/>
     {children}
-    <Footer/>
     </div>;
 };
 

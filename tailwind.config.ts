@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      objectPosition: {
+        'md-center': '0% 25%',
+        'md-fix': '0% 60%'
+      },
       
       colors: {
         border: "hsl(var(--border))",

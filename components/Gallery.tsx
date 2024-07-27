@@ -60,6 +60,16 @@ const Gallery = () => {
             alt=""
             className=" w-64 md:w-[450px] object-cover h-64 md:h-[450px]"
           />
+          <img
+            src="/images/marquee/9.jpg"
+            alt=""
+            className=" w-64 md:w-[450px] object-cover h-64 md:h-[450px]"
+          />
+          <img
+            src="/images/marquee/10.jpg"
+            alt=""
+            className=" w-64 md:w-[450px] object-cover h-64 md:h-[450px]"
+          />
         </Marquee>
       </div>
     </section>

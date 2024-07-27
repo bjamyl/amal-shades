@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { urlForImage } from "@/sanity/lib/image";
 import { getProducts } from "@/sanity/sanity.query";
@@ -12,6 +12,8 @@ import Link from "next/link";
 type CartItemProps = {
   id: string;
   quantity: number;
+  usage: string;
+  price: number;
 };
 
 type ProductProps = {
@@ -19,7 +21,7 @@ type ProductProps = {
 };
 
 const CartItem = (
-  { id, quantity }: CartItemProps,
+  { id, quantity, usage, price }: CartItemProps,
   { initialProducts }: ProductProps
 ) => {
   const [products, setProducts] = useState(initialProducts);
@@ -55,8 +57,10 @@ const CartItem = (
 
         <div className="flex flex-col justify-between">
           <div>
-            <p className="text-sm xl:text-base text-slate-500">{item.title}</p>
-            <p className="xl:text-2xl">{formatCurrency(item.price)}</p>
+            <p className="text-sm xl:text-base text-slate-500">
+              {item.title} <br /> + <span className="text-[#008080]">{usage}</span>
+            </p>
+            <p className="xl:text-2xl">{formatCurrency(price)}</p>
           </div>
           <Button
             onClick={() => removeFromCart(item._id)}
@@ -69,7 +73,7 @@ const CartItem = (
       </div>
       <div className="flex flex-col md:flex-row-reverse md:items-center md:gap-x-6 justify-between">
         <h4 className="text-xl font-bold">
-          {formatCurrency(quantity * item.price)} <br />
+          {formatCurrency(quantity * price)} <br />
           <span className="text-base font-normal">{quantity} in cart</span>
         </h4>
       </div>

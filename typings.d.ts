@@ -21,6 +21,7 @@ interface Products extends SanityBase {
   rim: string;
   color: string;
   stock: number;
+  category:string;
 }
 
 interface TestimonialCardProps {

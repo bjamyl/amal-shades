@@ -59,7 +59,7 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <section className="layout__all pt-20">
         <div className=" md:grid md:grid-cols-2 md:gap-x-8">
           <div className="">
@@ -71,14 +71,11 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
               {formatCurrency(data.price)}
             </h4>
             {quantity === 0 ? (
-              <Button
-                onClick={() =>
-                  increaseCartQty(data._id, data.title, data.price)
-                }
-                className="bg-[#1a4848] rounded-none px-10"
-              >
-                Select lenses
-              </Button>
+              <Link href={`/products/${slug}/usage`}>
+                <Button className="bg-[#1a4848] rounded-none px-10">
+                  Select lenses
+                </Button>
+              </Link>
             ) : (
               <div>
                 {/* <div className="flex mb-5 items-center gap-2">
@@ -118,13 +115,10 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
             <div className="mt-6">
               <Tabs product={data} />
             </div>
-            <Link href={`/products/${slug}/usage`}>
-              <Button>Go to usage</Button>
-            </Link>
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </>
   );
 };

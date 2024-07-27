@@ -13,7 +13,7 @@ type ProductProps = {
 };
 
 const ShoppingCart = ({ initialProducts }: ProductProps) => {
-  const { cartItems, saveTotalAmount,totalAmount } = useShoppingCart();
+  const { cartItems, saveTotalAmount, totalAmount } = useShoppingCart();
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState(initialProducts);
   useEffect(() => {
@@ -28,11 +28,9 @@ const ShoppingCart = ({ initialProducts }: ProductProps) => {
   // Calculate totalAmount outside of direct rendering cycle
   useEffect(() => {
     let totalAmount = cartItems.reduce((total, cartItem) => {
-      const item = products
-        ? products.find((i) => i._id === cartItem.id)
-        : null;
-      return total + (item?.price || 0) * cartItem.quantity;
+      return total + cartItem.price * cartItem.quantity;
     }, 0);
+
     saveTotalAmount(totalAmount); // Ensure this does not directly cause renders
   }, [cartItems, products, saveTotalAmount]);
 

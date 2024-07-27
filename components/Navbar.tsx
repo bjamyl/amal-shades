@@ -62,24 +62,36 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.2 }}
-            className="w-screen fixed z-40 h-fit bg-slate-50  top-0 py-12"
+            className="w-screen fixed z-40 h-fit bg-slate-50 lg:hidden  top-0 py-12"
           >
             <ul>
-              <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">All products</li>
-              </div>
-              <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">Gents</li>
-              </div>
-              <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">Ladies</li>
-              </div>
-              <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">Accessories</li>
-              </div>
-              <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
-                <li className="ml-[30px] text-lg font-medium">About Us</li>
-              </div>
+              <Link href="/products">
+                <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
+                  <li className="ml-[30px] text-lg font-medium">
+                    All products
+                  </li>
+                </div>
+              </Link>
+              <Link href="/men">
+                <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
+                  <li className="ml-[30px] text-lg font-medium">Gents</li>
+                </div>
+              </Link>
+              <Link href="/women">
+                <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
+                  <li className="ml-[30px] text-lg font-medium">Ladies</li>
+                </div>
+              </Link>
+              <Link href="/accessories">
+                <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
+                  <li className="ml-[30px] text-lg font-medium">Accessories</li>
+                </div>
+              </Link>
+              <Link href="/about">
+                <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
+                  <li className="ml-[30px] text-lg font-medium">About Us</li>
+                </div>
+              </Link>
             </ul>
           </motion.div>
         </AnimatePresence>

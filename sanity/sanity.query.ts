@@ -16,6 +16,27 @@ export async function getProducts() {
   return client.fetch(prodQuery);
 }
 
+const menProdQuery = groq`
+*[_type == "product" && "Men" in categories[]->title]`;
+
+export async function getMenProds() {
+  return client.fetch(menProdQuery);
+}
+
+const womenProdQuery = groq`
+*[_type == "product" && "Women" in categories[]->title]`;
+
+export async function getWomenProds() {
+  return client.fetch(womenProdQuery);
+}
+
+const accessoriesQuery = groq`
+*[_type == "product" && "Accessories" in categories[]->title]`;
+
+export async function getAccessories() {
+  return client.fetch(accessoriesQuery);
+}
+
 const testimonials = groq`
 *[_type == "testimonial"]
 `;

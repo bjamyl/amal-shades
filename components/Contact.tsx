@@ -183,7 +183,7 @@ const Contact = () => {
           </div>
           <div className="hidden lg:block w-full h-64 md:h-80 lg:h-[450px] xl:h-[650px] overflow-hidden">
             <Image
-              src="/images/marquee/1.jpg"
+              src="/images/marquee/4.jpg"
               alt="contact-form-image"
               height={700}
               width={1280}

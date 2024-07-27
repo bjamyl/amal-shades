@@ -7,7 +7,7 @@ import { useContext, createContext } from "react";
 
 type ShoppingCartContext = {
   getItemQty: (id: string) => number;
-  increaseCartQty: (id: string, name: string, price: number) => void;
+  increaseCartQty: (id: string, name: string, usage:string, price: number) => void;
   decreaseCartQty: (id: string) => void;
   removeFromCart: (id: string) => void;
   cartQuantity: number;
@@ -37,6 +37,7 @@ type ShoppingCartContext = {
 type CartItem = {
   id: string;
   name: string;
+  usage:string;
   quantity: number;
   price: number;
 };
@@ -116,10 +117,10 @@ export function ShoppingCartProvider({
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
-  function increaseCartQty(id: string, name: string, price: number) {
+  function increaseCartQty(id: string, name: string,usage:string, price: number, ) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, name, price, quantity: 1 }];
+        return [...currItems, { id, name,usage, price, quantity: 1 }];
       } else {
         return currItems.map((item) => {
           if (item.id === id) {

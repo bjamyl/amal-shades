@@ -8,10 +8,10 @@ import { BeatLoader } from "react-spinners";
 import Link from "next/link";
 import ProductSwiper from "@/components/ProductSwiper";
 import React, { useEffect, useState } from "react";
-import Tabs from "@/components/Tabs";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Props = {
   params: {
@@ -46,6 +46,20 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
     fetchData();
   }, []);
 
+  const stockDisplay = () => {
+    if (data.stock === 0) {
+      return <p className="text-red-700 font-medium">Item is sold out</p>;
+    } else if (data.stock < 4) {
+      return (
+        <p className="text-red-700 font-medium">
+          Item is low in stock. <br /> {data.stock} units remaining
+        </p>
+      );
+    } else {
+      return null;
+    }
+  };
+
   if (!data) {
     return (
       <div className="h-screen border w-screen flex flex-col items-center justify-center z-50">
@@ -71,31 +85,19 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
               {formatCurrency(data.price)}
             </h4>
             {quantity === 0 ? (
-              <Link href={`/products/${slug}/usage`}>
-                <Button className="bg-[#1a4848] rounded-none px-10">
+              data.stock < 1 ? (
+                <Button disabled className="bg-[#1a4848] rounded-none px-10">
                   Select lenses
                 </Button>
-              </Link>
+              ) : (
+                <Link href={`/products/${slug}/usage`}>
+                  <Button className="bg-[#1a4848] rounded-none px-10">
+                    Select lenses
+                  </Button>
+                </Link>
+              )
             ) : (
               <div>
-                {/* <div className="flex mb-5 items-center gap-2">
-                <p className="font-bold text-[#1a4848]">Quantity:</p>
-                <Button
-                  onClick={() => decreaseCartQty(data._id)}
-                  variant="outline"
-                  className="bg-transparent rounded-none border-slate-300"
-                >
-                  -
-                </Button>
-                <p className="text-[#1a4848]">{quantity}</p>
-                <Button
-                  onClick={() => increaseCartQty(data._id)}
-                  variant="outline"
-                  className="bg-transparent rounded-none border-slate-300"
-                >
-                  +
-                </Button>
-              </div> */}
                 <Button
                   onClick={() => removeFromCart(data._id)}
                   className="rounded-none bg-[#1a4848] px-10"
@@ -104,16 +106,32 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
                 </Button>
               </div>
             )}
-            <div>
-              {data.stock < 4 ? (
-                <p className="text-red-700 font-medium">
-                  Item is low in stock. <br /> {data.stock} units remaining
-                </p>
-              ) : null}
-            </div>
+            <div>{stockDisplay()}</div>
 
             <div className="mt-6">
-              <Tabs product={data} />
+              <Tabs defaultValue="account" className="w-[400px]">
+                <TabsList>
+                  <TabsTrigger value="account">Description</TabsTrigger>
+                  <TabsTrigger value="password">Details</TabsTrigger>
+                </TabsList>
+                <TabsContent value="account">{data.description}</TabsContent>
+                <TabsContent value="password">
+                  <div className="flex gap-x-6">
+                    <ul className="font-bold space-y-3 text-[#008080]">
+                      <li>Size:</li>
+                      <li>Color:</li>
+                      <li>Shape:</li>
+                      <li>Rim:</li>
+                    </ul>
+                    <ul className="space-y-3 capitalize">
+                      <li>{data.size[0]}</li>
+                      <li>{data.color}</li>
+                      <li>{data.shape}</li>
+                      <li>{data.rim}</li>
+                    </ul>
+                  </div>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </div>

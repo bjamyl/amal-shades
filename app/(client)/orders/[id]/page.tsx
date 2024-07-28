@@ -170,7 +170,8 @@ const Order = ({ params }: Props, { initialOrder }: IniOrderProps) => {
                 data.items.map((item, i) => (
                   <li key={i} className="flex items-center justify-between">
                     <span className="text-muted-foreground">
-                      {item.itemName} x <span>{item.quantity}</span>
+                      {item.itemName} x <span>{item.quantity} </span> 
+                       <span className="text-[#008080] text-sm font-bold">({item.prescription})</span>
                     </span>
                     <span>{formatCurrency(item.price)}</span>
                   </li>

@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
   FormControl,
+  FormDescription
 } from "@/components/ui/form";
 import {
   Select,
@@ -33,6 +34,7 @@ import { ClipLoader } from "react-spinners";
 const formSchema = z.object({
   fullname: z.string().min(2),
   emailAddress: z.string().email(),
+  phone:z.string().min(10, "Please provide a 10 digit phone number"),
   region: z.string(),
   city: z.string().min(2),
   address: z.string(),
@@ -80,6 +82,7 @@ const Address = () => {
     saveMail(values.emailAddress);
     saveDelivery(finalRate);
     saveCustomer(values.fullname)
+    savePhone(values.phone)
     router.push("/checkout");
   };
 
@@ -132,8 +135,6 @@ const Address = () => {
                   );
                 }}
               />
-             
-
               <FormField
                 control={form.control}
                 name="emailAddress"
@@ -148,6 +149,26 @@ const Address = () => {
                           type="email"
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel>Phone number</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="02000000000"
+                          {...field}
+                          type="text"
+                        />
+                      </FormControl>
+                      <FormDescription>Make sure the number you provide is correct.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   );

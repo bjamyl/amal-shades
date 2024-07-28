@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react"
 
 import "../globals.css";
 import {
@@ -49,6 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Analytics/>
       <body className={PPNeueMontreal.className}>
         <ShoppingCartProvider>
           

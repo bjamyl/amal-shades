@@ -29,6 +29,7 @@ const Usage = () => {
   const router = useRouter();
   const [isPhotoChromic, setIsPhotoChromic] = useState(false);
   const [isBlueLight, setIsBlueLight] = useState(false);
+  const [isClear, setIsClear] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,15 +53,25 @@ const Usage = () => {
   }
 
   const onSelectPhotochromic = () => {
-    setSubtotal(data.price + 200);
+    setSubtotal(270);
     setIsBlueLight(false);
+    setIsClear(false);
     setIsPhotoChromic(true);
     setStep(1);
   };
 
-  const onSelectBluelight = () => {
-    setSubtotal(data.price + 120);
+  const onSelectClear = () => {
+    setSubtotal(data.price);
+    setIsBlueLight(false);
     setIsPhotoChromic(false);
+    setIsClear(true);
+    setStep(1);
+  };
+
+  const onSelectBluelight = () => {
+    setSubtotal(300);
+    setIsPhotoChromic(false);
+    setIsClear(false);
     setIsBlueLight(true);
     setStep(1);
   };
@@ -75,7 +86,7 @@ const Usage = () => {
     name: string,
     usage: string,
     price: number,
-    stock:number
+    stock: number
   ) => {
     increaseCartQty(id, name, usage, price, stock);
     toast(`${name} has been added to cart`);
@@ -102,6 +113,16 @@ const Usage = () => {
             Photochromic filter
           </span>{" "}
           for your lens
+        </span>
+      );
+    } else {
+      return (
+        <span>
+          a{" "}
+          <span className="text-[#008080] font-medium">
+            clear 
+          </span>{" "}
+          lenses
         </span>
       );
     }
@@ -137,14 +158,14 @@ const Usage = () => {
           </div>
           {step == 0 && (
             <div className="mt-5 md:mt-0 flex flex-col gap-6 ">
-              <div className="p-4 border rounded-lg hover:cursor-pointer hover:bg-slate-50 max-w-[500px]">
+              <div onClick={onSelectClear} className="p-4 border rounded-lg hover:cursor-pointer hover:bg-slate-50 max-w-[500px]">
                 <p className="text-xl font-medium">Clear</p>
                 <p className="text-slate-500 text-sm">
                   Glasses with transparent lens with no medications or
                   treatment.
                 </p>
                 <p className="text-xl mt-6 font-medium text-[#008080]">
-                  +GHS0.00
+                  {formatCurrency(data.price)}
                 </p>
               </div>
               <div
@@ -157,7 +178,7 @@ const Usage = () => {
                   digital screens and the sun.
                 </p>
                 <p className="text-xl mt-6 font-medium text-[#008080]">
-                  +GHS120.00
+                  GHS300.00
                 </p>
               </div>
               <div
@@ -169,7 +190,7 @@ const Usage = () => {
                   Lenses that darken automatically on exposure to the sun.
                 </p>
                 <p className="text-xl mt-6 font-medium text-[#008080]">
-                  +GHS200.00
+                  GHS270.00
                 </p>
               </div>
             </div>
@@ -208,7 +229,7 @@ const Usage = () => {
             </div>
           )}
         </div>
-        <p className="my-10 border-t pt-10">
+        <p className="my-10 border-t pt-10 text-[#008080]">
           Subtotal:{" "}
           <span className="text-xl font-medium">
             {formatCurrency(subtotal)}

@@ -29,6 +29,11 @@ export default defineType({
               title: "Quantity",
               type: "number",
             }),
+            defineField({
+              name: "prescription",
+              title: "Prescription",
+              type: "string",
+            }),
           ],
         },
       ],
@@ -38,7 +43,7 @@ export default defineType({
       title: "Total",
       type: "number",
     }),
-   
+
     defineField({
       name: "shipping",
       title: "Shipping",

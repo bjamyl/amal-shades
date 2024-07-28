@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+import { groq, type QueryParams } from "next-sanity";
 import { client } from "./lib/client";
 import { OrderItem, OrderProps, OrderRequestProps } from "@/typings";
 
@@ -13,28 +13,44 @@ const prodQuery = groq`
 *[_type == "product"]`;
 
 export async function getProducts() {
-  return client.fetch(prodQuery);
+  return client.fetch(prodQuery, { revalidate: 60 });
+}
+
+export async function sanityFetch<QueryResponse>({
+  query,
+  params = {},
+  revalidate = 10, // default revalidation time in seconds
+}: {
+  query: string;
+  params?: QueryParams;
+  revalidate?: number | false;
+}) {
+  return client.fetch<QueryResponse>(query, params, {
+    next: {
+      revalidate: revalidate,
+    },
+  });
 }
 
 const menProdQuery = groq`
 *[_type == "product" && "Men" in categories[]->title]`;
 
 export async function getMenProds() {
-  return client.fetch(menProdQuery);
+  return client.fetch(menProdQuery,{ revalidate: 60 });
 }
 
 const womenProdQuery = groq`
 *[_type == "product" && "Women" in categories[]->title]`;
 
 export async function getWomenProds() {
-  return client.fetch(womenProdQuery);
+  return client.fetch(womenProdQuery,{ revalidate: 60 });
 }
 
 const accessoriesQuery = groq`
 *[_type == "product" && "Accessories" in categories[]->title]`;
 
 export async function getAccessories() {
-  return client.fetch(accessoriesQuery);
+  return client.fetch(accessoriesQuery,{ revalidate: 60 });
 }
 
 const testimonials = groq`

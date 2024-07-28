@@ -112,15 +112,10 @@ const Checkout = () => {
   //Init payment with config
   const initializePayment = usePaystackPayment(config);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
 
-  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    savePhone(values.phoneNumber)
-    console.log("submitted these values", {
-      phoneNnumber: values.phoneNumber,
-    });
+
+  const handleSubmit = () => {
+   
     initializePayment({
       onSuccess: onSuccess,
       onClose: onClose,
@@ -146,36 +141,12 @@ const Checkout = () => {
       <section className="w-fit xl:w-[45%] items-center flex flex-col justify-between">
         <div>
           <h2 className="text-2xl font-bold">Checkout</h2>
-          <p className="mb-10">
-            Please provide your information and shipping details
-          </p>
-
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="flex flex-col gap-y-4 w"
-            >
           
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Phone number</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Phone number"
-                          {...field}
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-              <Button type="submit" className="w-full mt-2 flex gap-4">
+
+          
+          
+            
+              <Button onClick={handleSubmit}  className="w-full mt-2 flex gap-4">
                 {isLoading ? (
                   <ClipLoader />
                 ) : (
@@ -185,8 +156,7 @@ const Checkout = () => {
                   </div>
                 )}
               </Button>
-            </form>
-          </Form>
+            
         </div>
       </section>
     </main>

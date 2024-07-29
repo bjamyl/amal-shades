@@ -22,7 +22,6 @@ const Latest = ({ title, description, products }: LatestProps) => {
             {description}
           </p>
         </div>
-        <p className="mt-5">View all</p>
       </div>
       <div className="mt-10 grid gap-4 grid-cols-1 md:grid-cols-3 md:gap-y-3 xl:grid-cols-4">
         {prods.map((item: Products) => (

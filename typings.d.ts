@@ -27,14 +27,9 @@ interface Products extends SanityBase {
 interface TestimonialCardProps {
   message: string;
   name: string;
-  image: Image;
+  image: string;
 }
 
-interface BannerType {
-  heading: string;
-  subheading: string;
-  gallery: Image[];
-}
 
 interface ShippingRate {
   region: string;

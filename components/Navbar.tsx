@@ -31,9 +31,9 @@ export const Navbar = () => {
           <Link href="/women">
             <li>Ladies</li>
           </Link>
-          <Link href="/accessories">
+          {/* <Link href="/accessories">
             <li>Accessories</li>
-          </Link>
+          </Link> */}
           <Link href="/about">
             <li>About us</li>
           </Link>
@@ -82,11 +82,11 @@ export const Navbar = () => {
                   <li className="ml-[30px] text-lg font-medium">Ladies</li>
                 </div>
               </Link>
-              <Link href="/accessories">
+              {/* <Link href="/accessories">
                 <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
                   <li className="ml-[30px] text-lg font-medium">Accessories</li>
                 </div>
-              </Link>
+              </Link> */}
               <Link href="/about">
                 <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
                   <li className="ml-[30px] text-lg font-medium">About Us</li>

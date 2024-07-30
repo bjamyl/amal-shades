@@ -1,11 +1,20 @@
+"use client"
 import ItemCard from "@/components/ItemCard";
 import { getMenProds } from "@/sanity/sanity.query";
 import { Products as Product } from "@/typings";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Men = async () => {
-  const products: Product[] = await getMenProds();
+const Men =  () => {
+  const [prods, setProds] = useState<Product[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const products: Product[] = await getMenProds();
+      setProds(products);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <div className="relative">
@@ -25,7 +34,7 @@ const Men = async () => {
       </div>
       <section className="my-16 layout__all">
         <div className="mt-10 grid gap-4 grid-cols-1 md:grid-cols-3 md:gap-y-3 xl:grid-cols-4">
-          {products.map((item: Product) => (
+          {prods.map((item: Product) => (
             <ItemCard product={item} key={item._id} />
           ))}
         </div>

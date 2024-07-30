@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Gallery from "@/components/Gallery";
 import Contact from "@/components/Contact";
+import NewTestimonials from "@/components/NewTestimonials";
 
 const Home = () => {
   return (
@@ -22,7 +23,7 @@ const Home = () => {
           <Hero />
           <LatestGlasses />
           <GFA />
-          <LatestAccessories />
+          {/* <LatestAccessories /> */}
           <Testimonials />
           <FAQ />
           <Gallery />

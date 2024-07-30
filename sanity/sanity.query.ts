@@ -54,7 +54,14 @@ export async function getAccessories() {
 }
 
 const testimonials = groq`
-*[_type == "testimonial"]
+*[_type == "testimonial"]{
+  name,
+  message,
+  "image": photo.asset->url,
+  photo {
+    alt
+  }
+}
 `;
 
 export async function getTestimonials() {

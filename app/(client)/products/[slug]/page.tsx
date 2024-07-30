@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { getSingleProduct } from "@/sanity/sanity.query";
+import { getProducts, getSingleProduct } from "@/sanity/sanity.query";
 import { Products } from "@/typings";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { BeatLoader } from "react-spinners";
@@ -12,6 +12,7 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Marquee from "react-fast-marquee";
 
 type Props = {
   params: {
@@ -25,6 +26,7 @@ type ProductProps = {
 
 const Product = ({ params }: Props, { initialData }: ProductProps) => {
   const [data, setData] = useState(initialData);
+  // const [similarItems, setSimilarItems] = useState<Products[]>([]);
   // Get context functions
   const {
     getItemQty,
@@ -43,7 +45,14 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
       storeSlug(slug);
     };
 
+    // const fetchSimilar = async () => {
+    //   const similar: Products[] = await getProducts();
+    //   const similarProds = similar.slice(0, 4);
+    //   setSimilarItems(similarProds);
+    // };
+
     fetchData();
+    // fetchSimilar();
   }, []);
 
   const stockDisplay = () => {
@@ -135,6 +144,13 @@ const Product = ({ params }: Props, { initialData }: ProductProps) => {
             </div>
           </div>
         </div>
+        {/* <div>
+          <Marquee>
+            {similarItems.map((item: Products) => (
+              <ItemCard product={item} key={item._id} />
+            ))}
+          </Marquee>
+        </div> */}
       </section>
       <Footer />
     </>

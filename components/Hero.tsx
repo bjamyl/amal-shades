@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { BeatLoader } from "react-spinners";
+import Link from "next/link";
 
 const Hero = () => {
   const images = [
@@ -80,12 +81,14 @@ const Hero = () => {
           Stylish eyewear offering fashionable options{" "}
           <br className="md:hidden" /> beyond just corrective lenses.
         </p>
-        <Button
-          className="px-8 text-white rounded-none bg-transparent border-slate-50 border-2"
-          variant="outline"
-        >
-          Shop now
-        </Button>
+        <Link href="/products">
+          <Button
+            className="px-8 text-white rounded-none bg-transparent border-slate-50 border-2"
+            variant="outline"
+          >
+            Shop now
+          </Button>
+        </Link>
       </div>
     </section>
   );

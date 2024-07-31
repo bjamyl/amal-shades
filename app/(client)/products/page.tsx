@@ -21,11 +21,11 @@ const Products =  () => {
     <div>
       <div className="relative">
         <Image
-          src="/images/allproducts.jpg"
+          src="/images/allproducts.png"
           alt="all-products"
           width={1280}
           height={720}
-          className="brightness-50 w-screen xl:h-[60vh] object-cover h-[50vh]"
+          className="brightness-50 md:object-md-center w-screen xl:h-[85vh] object-cover h-[75vh]"
         />
         <div className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10">
           <h2 className="text-white font-bold text-2xl xl:text-6xl">

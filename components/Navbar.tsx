@@ -34,9 +34,9 @@ export const Navbar = () => {
           {/* <Link href="/accessories">
             <li>Accessories</li>
           </Link> */}
-          <Link href="/about">
+          {/* <Link href="/about">
             <li>About us</li>
-          </Link>
+          </Link> */}
         </ul>
         <div className="flex justify-center items-center gap-2">
           <div
@@ -87,11 +87,11 @@ export const Navbar = () => {
                   <li className="ml-[30px] text-lg font-medium">Accessories</li>
                 </div>
               </Link> */}
-              <Link href="/about">
+              {/* <Link href="/about">
                 <div className="py-5 border-b hover:bg-[#1F2937] hover:bg-opacity-25 cursor-pointer">
                   <li className="ml-[30px] text-lg font-medium">About Us</li>
                 </div>
-              </Link>
+              </Link> */}
             </ul>
           </motion.div>
         </AnimatePresence>

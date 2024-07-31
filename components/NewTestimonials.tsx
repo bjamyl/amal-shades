@@ -16,7 +16,7 @@ const NewTestimonials = ({ testimonials }: Reviews) => {
   return (
     <section className="relative">
       <Swiper
-        className="xl:h-[355px] h-[518px]"
+        className="h-[300px]"
         navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
         pagination={true}
         modules={[Pagination, Navigation]}

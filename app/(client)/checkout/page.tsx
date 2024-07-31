@@ -30,6 +30,7 @@ import orderItem from "@/utils/orderItem";
 import { useOrder } from "@/context/OrderContext";
 import { makeOrder } from "@/utils/order";
 import { ClipLoader } from "react-spinners";
+import { paystackKey } from "@/utils/paystack";
 
 const formSchema = z.object({
   phoneNumber: z.string().min(10,"Phone number must contain at least 10 characters"),
@@ -77,13 +78,20 @@ const Checkout = () => {
     total: totalAmount,
   };
 
+  const { SMTP_EMAIL, SMTP_PASSWORD } = process.env;
+
+
+  
+
+
+ 
   // Paystack config
   const config = {
     reference: new Date().getTime().toString(),
     email: mail,
     currency: "GHS",
     amount: totalAmount * 100,
-    publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
+    publicKey: "pk_live_1a39886ec42d1a1c9c4cc6b2e5563ebde54e5d19",
   };
 
   //If payment is successful
@@ -106,7 +114,7 @@ const Checkout = () => {
 
   //If dialog is closed
   const onClose = () => {
-    console.log("closed");
+    toast("Payment canceled")
   };
 
   //Init payment with config

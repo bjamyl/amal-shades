@@ -5,14 +5,20 @@ import { BsHandbag } from "react-icons/bs";
 import { Twirl as Hamburger } from "hamburger-react";
 import { Button } from "./ui/button";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ShoppingCart from "./ShoppingCart";
+import { runFireworks } from "@/utils/canvas";
 
 export const Navbar = () => {
   const { cartQuantity } = useShoppingCart();
   const [isOpen, setIsOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  useEffect(() => {
+    runFireworks()
+  }, [])
+  
 
   return (
     <header className="w-full fixed bg-white shadow-sm z-40">

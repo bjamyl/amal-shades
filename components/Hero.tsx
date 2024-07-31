@@ -13,6 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { BeatLoader } from "react-spinners";
 import Link from "next/link";
+import { runFireworks } from "@/utils/canvas";
 
 const Hero = () => {
   const images = [
@@ -21,6 +22,8 @@ const Hero = () => {
     "/hero/hero3.jpg",
     "/hero/hero4.jpg",
   ];
+
+ 
 
   return (
     <section className="relative">

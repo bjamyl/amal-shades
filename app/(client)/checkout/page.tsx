@@ -32,9 +32,7 @@ import { makeOrder } from "@/utils/order";
 import { ClipLoader } from "react-spinners";
 
 const formSchema = z.object({
-  phoneNumber: z
-    .string()
-    .min(10, "Phone number must contain at least 10 characters"),
+  phoneNumber: z.string().min(10,"Phone number must contain at least 10 characters"),
 });
 
 const Checkout = () => {
@@ -50,7 +48,7 @@ const Checkout = () => {
     delivery,
     saveCustomer,
     removeFromCart,
-    savePhone,
+    savePhone
   } = useShoppingCart();
 
   const router = useRouter();
@@ -59,11 +57,11 @@ const Checkout = () => {
 
   //Get all order items
   const orderItems: OrderItem[] = cartItems.map((item) => ({
-    _type: "document",
+    _type:"document",
     itemName: item.name,
     price: item.price,
     quantity: item.quantity,
-    prescription: item.usage,
+    prescription: item.usage
   }));
 
   const newOrder: OrderRequestProps = {
@@ -79,16 +77,13 @@ const Checkout = () => {
     total: totalAmount,
   };
 
-  if (!process.env.PAYSTACK_API_KEY) {
-    throw new Error("PAYSTACK_API_KEY environment variable is not set");
-  }
   // Paystack config
   const config = {
     reference: new Date().getTime().toString(),
     email: mail,
     currency: "GHS",
     amount: totalAmount * 100,
-    publicKey: process.env.PAYSTACK_API_KEY,
+    publicKey: "pk_test_766ab4c20b6ba946429f6ec6ab47a57e3b0efeb0",
   };
 
   //If payment is successful
@@ -98,28 +93,29 @@ const Checkout = () => {
     };
 
     const patchStock = async () => {
-      const promises = cartItems.map((item) =>
-        updateStock(item.id, item.quantity, item.stock)
-      );
+      const promises = cartItems.map((item) => updateStock(item.id, item.quantity, item.stock));
       await Promise.all(promises);
     };
-
+    
     patchStock();
     fetch();
     cartItems.forEach((item) => removeFromCart(item.id));
-
+    
     router.replace("/confirmed");
   };
 
   //If dialog is closed
   const onClose = () => {
-    alert("Payment canceled");
+    console.log("closed");
   };
 
   //Init payment with config
   const initializePayment = usePaystackPayment(config);
 
+
+
   const handleSubmit = () => {
+   
     initializePayment({
       onSuccess: onSuccess,
       onClose: onClose,
@@ -145,17 +141,22 @@ const Checkout = () => {
       <section className="w-fit xl:w-[45%] items-center flex flex-col justify-between">
         <div>
           <h2 className="text-2xl font-bold">Checkout</h2>
+          
 
-          <Button onClick={handleSubmit} className="w-full mt-2 flex gap-4">
-            {isLoading ? (
-              <ClipLoader />
-            ) : (
-              <div className="flex gap-4">
-                <FaMoneyCheckDollar size={22} /> Pay{" "}
-                {formatCurrency(totalAmount)} with Paystack
-              </div>
-            )}
-          </Button>
+          
+          
+            
+              <Button onClick={handleSubmit}  className="w-full mt-2 flex gap-4">
+                {isLoading ? (
+                  <ClipLoader />
+                ) : (
+                  <div className="flex gap-4">
+                    <FaMoneyCheckDollar size={22} /> Pay{" "}
+                    {formatCurrency(totalAmount)} with Paystack
+                  </div>
+                )}
+              </Button>
+            
         </div>
       </section>
     </main>

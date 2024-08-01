@@ -23,7 +23,9 @@ const Hero = () => {
     "/hero/hero4.jpg",
   ];
 
- 
+  useEffect(() => {
+    runFireworks();
+  }, []);
 
   return (
     <section className="relative">

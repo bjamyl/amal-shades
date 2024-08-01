@@ -8,16 +8,13 @@ import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ShoppingCart from "./ShoppingCart";
-import { runFireworks } from "@/utils/canvas";
 
 export const Navbar = () => {
   const { cartQuantity } = useShoppingCart();
   const [isOpen, setIsOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  useEffect(() => {
-    runFireworks()
-  }, [])
+  
   
 
   return (

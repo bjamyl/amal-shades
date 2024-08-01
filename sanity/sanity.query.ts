@@ -93,7 +93,7 @@ export async function updateStock(
 }
 
 const orders = groq`
-*[_type == "order"]`;
+*[_type == "order"] | order(_createdAt desc)`;
 export async function getOrders() {
   return client.fetch(orders);
 }

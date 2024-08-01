@@ -49,6 +49,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState, useEffect, useRef } from "react";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import { formatDate } from "@/utils/formatDate";
 
 type Props = {
   params: {
@@ -116,7 +117,9 @@ const Order = ({ params }: Props, { initialOrder }: IniOrderProps) => {
                 <span className="sr-only">Copy Order ID</span>
               </Button>
             </CardTitle>
-            <CardDescription>Date: {data._createdAt}</CardDescription>
+            <CardDescription>
+              Date: {formatDate(data._createdAt)}
+            </CardDescription>
           </div>
           <div className="ml-auto flex items-center gap-1">
             <Button
@@ -170,8 +173,10 @@ const Order = ({ params }: Props, { initialOrder }: IniOrderProps) => {
                 data.items.map((item, i) => (
                   <li key={i} className="flex items-center justify-between">
                     <span className="text-muted-foreground">
-                      {item.itemName} x <span>{item.quantity} </span> 
-                       <span className="text-[#008080] text-sm font-bold">({item.prescription})</span>
+                      {item.itemName} x <span>{item.quantity} </span>
+                      <span className="text-[#008080] text-sm font-bold">
+                        ({item.prescription})
+                      </span>
                     </span>
                     <span>{formatCurrency(item.price)}</span>
                   </li>
@@ -265,10 +270,12 @@ const Order = ({ params }: Props, { initialOrder }: IniOrderProps) => {
               </AlertDialogTitle>
               <AlertDialogDescription>
                 This will change the status of the order to{" "}
-                {checkShipped ? "shipped" : "pending"}{""}
+                {checkShipped ? "shipped" : "pending"}
+                {""}
                 {checkShipped
                   ? "and your customer will receive an email detailing this."
-                  : "."} Do you wish to proceed?
+                  : "."}{" "}
+                Do you wish to proceed?
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

@@ -33,7 +33,9 @@ import { ClipLoader } from "react-spinners";
 import { paystackKey } from "@/utils/paystack";
 
 const formSchema = z.object({
-  phoneNumber: z.string().min(10,"Phone number must contain at least 10 characters"),
+  phoneNumber: z
+    .string()
+    .min(10, "Phone number must contain at least 10 characters"),
 });
 
 const Checkout = () => {
@@ -49,20 +51,21 @@ const Checkout = () => {
     delivery,
     saveCustomer,
     removeFromCart,
-    savePhone
+    savePhone,
   } = useShoppingCart();
 
   const router = useRouter();
+  const [paymentSucess, setPaymentSuccess] = useState(false);
 
   let isLoading = false;
 
   //Get all order items
   const orderItems: OrderItem[] = cartItems.map((item) => ({
-    _type:"document",
+    _type: "document",
     itemName: item.name,
     price: item.price,
     quantity: item.quantity,
-    prescription: item.usage
+    prescription: item.usage,
   }));
 
   const newOrder: OrderRequestProps = {
@@ -80,11 +83,6 @@ const Checkout = () => {
 
   const { SMTP_EMAIL, SMTP_PASSWORD } = process.env;
 
-
-  
-
-
- 
   // Paystack config
   const config = {
     reference: new Date().getTime().toString(),
@@ -101,29 +99,28 @@ const Checkout = () => {
     };
 
     const patchStock = async () => {
-      const promises = cartItems.map((item) => updateStock(item.id, item.quantity, item.stock));
+      const promises = cartItems.map((item) =>
+        updateStock(item.id, item.quantity, item.stock)
+      );
       await Promise.all(promises);
     };
-    
+    setPaymentSuccess(true);
     patchStock();
     fetch();
     cartItems.forEach((item) => removeFromCart(item.id));
-    
+
     router.replace("/confirmed");
   };
 
   //If dialog is closed
   const onClose = () => {
-    toast("Payment canceled")
+    toast("Payment canceled");
   };
 
   //Init payment with config
   const initializePayment = usePaystackPayment(config);
 
-
-
   const handleSubmit = () => {
-   
     initializePayment({
       onSuccess: onSuccess,
       onClose: onClose,
@@ -147,25 +144,29 @@ const Checkout = () => {
         </div>
       </div>
       <section className="w-fit xl:w-[45%] items-center flex flex-col justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">Checkout</h2>
-          
+        {paymentSucess ? (
+          <div>
+            <h2 className="text-xl font-medium xl:text-2xl">
+              Thank you for trusting Amal Shades {customer}!
+            </h2>
+            <p>Redirecting, please wait....</p>
+          </div>
+        ) : (
+          <div>
+            <h2 className="text-2xl font-bold">Checkout</h2>
 
-          
-          
-            
-              <Button onClick={handleSubmit}  className="w-full mt-2 flex gap-4">
-                {isLoading ? (
-                  <ClipLoader />
-                ) : (
-                  <div className="flex gap-4">
-                    <FaMoneyCheckDollar size={22} /> Pay{" "}
-                    {formatCurrency(totalAmount)} with Paystack
-                  </div>
-                )}
-              </Button>
-            
-        </div>
+            <Button onClick={handleSubmit} className="w-full mt-2 flex gap-4">
+              {isLoading ? (
+                <ClipLoader />
+              ) : (
+                <div className="flex gap-4">
+                  <FaMoneyCheckDollar size={22} /> Pay{" "}
+                  {formatCurrency(totalAmount)} with Paystack
+                </div>
+              )}
+            </Button>
+          </div>
+        )}
       </section>
     </main>
   );

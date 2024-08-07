@@ -34,6 +34,12 @@ const Footer = () => {
         <p className="hidden md:block">
           @2024 Amal Shades. All Rights Reserved
         </p>
+        <p>
+          Built by{" "}
+          <Link className="underline text-blue-600" target="_blank" href="https://jamilb.vercel.app/">
+            Jamil
+          </Link>
+        </p>
       </div>
     </footer>
   );
